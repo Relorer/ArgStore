@@ -5,7 +5,8 @@ using Data.Entities;
 using Data.Context;
 using Data.Interfaces;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.Rating.Remove(rating);
         }
 
-        public Rating GetItemByID(int id)
+        public async Task<Rating> GetItemByID(int id)
         {
-            return context.Rating.Find(id);
+            return await context.Rating.FindAsync(id);
         }
 
-        public IEnumerable<Rating> GetItems()
+        public async Task<IEnumerable<Rating>> GetItems()
         {
-            return context.Rating.ToList();
+            return await context.Rating.ToListAsync();
         }
 
-        public void InsertItem(Rating rating)
+        public async Task<Rating> InsertItem(Rating rating)
         {
-            context.Rating.Add(rating);
+            return (await context.Rating.AddAsync(rating)).Entity;
         }
 
         public void UpdateItem(Rating student)

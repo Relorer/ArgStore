@@ -12,7 +12,6 @@ namespace Data.Entities
         public string Login { get; set; }
         public string Password { get; set; }
 
-        [Required]
         public Basket Basket { get; set; }
         public ICollection<Mark> Marks { get; set; }
         public ICollection<Comment> Comments{ get; set; }

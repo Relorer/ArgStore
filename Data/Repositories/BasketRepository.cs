@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using Data.Context;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.Basket.Remove(basket);
         }
 
-        public Basket GetItemByID(int id)
+        public async Task<Basket> GetItemByID(int id)
         {
-            return context.Basket.Find(id);
+            return await context.Basket.FindAsync(id);
         }
 
-        public IEnumerable<Basket> GetItems()
+        public async Task<IEnumerable<Basket>> GetItems()
         {
-            return context.Basket.ToList();
+            return await context.Basket.ToListAsync();
         }
 
-        public void InsertItem(Basket basket)
+        public async Task<Basket> InsertItem(Basket basket)
         {
-            context.Basket.Add(basket);
+            return (await context.Basket.AddAsync(basket)).Entity;
         }
 
         public void UpdateItem(Basket student)

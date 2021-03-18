@@ -6,7 +6,12 @@ namespace BLL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private BaseContext context = new BaseContext();
+        private BaseContext context;
+
+        public UnitOfWork(BaseContext context)
+        {
+            this.context = context;
+        }
 
         private UserRepository userRepository;
         public UserRepository User

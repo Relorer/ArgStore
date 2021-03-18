@@ -13,5 +13,12 @@
         "semi": ["error", "always"],
         "quotes": ["error", "double"],
         "indent": ["error", 4]
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        }
+      }
     }
   }

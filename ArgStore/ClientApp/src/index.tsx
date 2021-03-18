@@ -7,27 +7,30 @@ import purple from "@material-ui/core/colors/purple";
 import App from "./App";
 
 import "./index.scss";
+import { SnackBarProvider } from "./services/SnackBarProvider";
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#506AD4",
-    },
+    palette: {
+        primary: {
+            main: "#506AD4",
+        },
 
-    secondary: {
-      main: "#F2CC39",
+        secondary: {
+            main: "#F2CC39",
+        },
     },
-  },
 });
 
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <BrowserRouter basename={baseUrl || ""}>
-      <App />
-    </BrowserRouter>
-  </ThemeProvider>,
-  rootElement
+    <ThemeProvider theme={theme}>
+        <BrowserRouter basename={baseUrl || ""}>
+            <SnackBarProvider>
+                <App />
+            </SnackBarProvider>
+        </BrowserRouter>
+    </ThemeProvider>,
+    rootElement
 );

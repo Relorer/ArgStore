@@ -4,8 +4,9 @@ using System.Text;
 using Data.Entities;
 using Data.Interfaces;
 using Data.Context;
-using System.Data.Entity;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.PurchaseHistory.Remove(purchaseHistory);
         }
 
-        public PurchaseHistory GetItemByID(int id)
+        public async Task<PurchaseHistory> GetItemByID(int id)
         {
-            return context.PurchaseHistory.Find(id);
+            return await context.PurchaseHistory.FindAsync(id);
         }
 
-        public IEnumerable<PurchaseHistory> GetItems()
+        public async Task<IEnumerable<PurchaseHistory>> GetItems()
         {
-            return context.PurchaseHistory.ToList();
+            return await context.PurchaseHistory.ToListAsync();
         }
 
-        public void InsertItem(PurchaseHistory purchaseHistory)
+        public async Task<PurchaseHistory> InsertItem(PurchaseHistory purchaseHistory)
         {
-            context.PurchaseHistory.Add(purchaseHistory);
+            return (await context.PurchaseHistory.AddAsync(purchaseHistory)).Entity;
         }
 
         public void UpdateItem(PurchaseHistory student)

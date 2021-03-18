@@ -1,9 +1,10 @@
 ﻿using Data.Context;
 using Data.Entities;
 using Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -22,24 +23,25 @@ namespace Data.Repositories
             context.Game.Remove(game);
         }
 
-        public Game GetItemByID(int id)
+        public async Task<Game> GetItemByID(int id)
         {
-            return context.Game.Find(id);
+            return await context.Game.FindAsync(id);
         }
 
-        public IEnumerable<Game> GetItems()
+        public async Task<IEnumerable<Game>> GetItems()
         {
-            return context.Game.ToList();
+            return await context.Game.ToListAsync();
         }
 
-        public void InsertItem(Game game)
+
+        public async Task<Game> InsertItem(Game game)
         {
-            context.Game.Add(game);
+            return (await context.Game.AddAsync(game)).Entity;
         }
 
-        public void UpdateItem(Game student)
+        public void UpdateItem(Game game)
         {
-            context.Entry(student).State = EntityState.Modified;
+            context.Entry(game).State = EntityState.Modified;
         }
     }
 }

@@ -5,7 +5,8 @@ using Data.Entities;
 using Data.Interfaces;
 using Data.Context;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.Comment.Remove(comment);
         }
 
-        public Comment GetItemByID(int id)
+        public async Task<Comment> GetItemByID(int id)
         {
-            return context.Comment.Find(id);
+            return await context.Comment.FindAsync(id);
         }
 
-        public IEnumerable<Comment> GetItems()
+        public async Task<IEnumerable<Comment>> GetItems()
         {
-            return context.Comment.ToList();
+            return await context.Comment.ToListAsync();
         }
 
-        public void InsertItem(Comment comment)
+        public async Task<Comment> InsertItem(Comment comment)
         {
-            context.Comment.Add(comment);
+            return (await context.Comment.AddAsync(comment)).Entity;
         }
 
         public void UpdateItem(Comment student)

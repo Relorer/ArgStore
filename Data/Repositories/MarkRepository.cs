@@ -5,7 +5,8 @@ using Data.Entities;
 using Data.Context;
 using Data.Interfaces;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.Mark.Remove(mark);
         }
 
-        public Mark GetItemByID(int id)
+        public async Task<Mark> GetItemByID(int id)
         {
-            return context.Mark.Find(id);
+            return await context.Mark.FindAsync(id);
         }
 
-        public IEnumerable<Mark> GetItems()
+        public async Task<IEnumerable<Mark>> GetItems()
         {
-            return context.Mark.ToList();
+            return await context.Mark.ToListAsync();
         }
 
-        public void InsertItem(Mark mark)
+        public async Task<Mark> InsertItem(Mark mark)
         {
-            context.Mark.Add(mark);
+            return (await context.Mark.AddAsync(mark)).Entity;
         }
 
         public void UpdateItem(Mark student)

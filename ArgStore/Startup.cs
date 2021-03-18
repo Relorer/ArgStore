@@ -1,4 +1,6 @@
 using BLL;
+using Microsoft.EntityFrameworkCore;
+using Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,14 +22,15 @@ namespace ArgStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.RegisterDatabase(connection);
+
             services.AddControllersWithViews();
 
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
-
-            services.AddSingleton(typeof(IUnitOfWork), typeof(UnitOfWork));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

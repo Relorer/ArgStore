@@ -1,15 +1,19 @@
 ﻿using Data.Entities;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Data.Context
 {
     public class BaseContext : DbContext
     {
-        private const string BaseName = "ARGSTORE";
-
-        public BaseContext() : base(BaseName)
+        public BaseContext() : base()
         {
-            Database.SetInitializer(new BaseInitializer());
+            this.Initialize();
+        }
+
+        public BaseContext(DbContextOptions options) : base(options)
+        {
+            this.Initialize();
         }
 
         public DbSet<Basket> Basket { get; set; }
@@ -22,9 +26,12 @@ namespace Data.Context
         public DbSet<Rating> Rating { get; set; }
         public DbSet<User> User { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>()
+            .HasOne(a => a.Basket)
+            .WithOne(b => b.User)
+            .HasForeignKey<User>(p => p.Id);
         }
     }
 }

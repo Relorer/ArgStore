@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Data.Context;
 using Data.Entities;
 using Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.User.Remove(user);
         }
 
-        public User GetItemByID(int id)
+        public async Task<User> GetItemByID(int id)
         {
-            return context.User.Find(id);
+            return await context.User.FindAsync(id);
         }
 
-        public IEnumerable<User> GetItems()
+        public async Task<IEnumerable<User>> GetItems()
         {
-            return context.User.ToList();
+            return await context.User.ToListAsync();
         }
 
-        public void InsertItem(User user)
+        public async Task<User> InsertItem(User user)
         {
-            context.User.Add(user);
+            return (await context.User.AddAsync(user)).Entity;
         }
 
         public void UpdateItem(User student)

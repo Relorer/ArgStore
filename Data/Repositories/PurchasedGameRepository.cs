@@ -5,7 +5,8 @@ using Data.Entities;
 using Data.Interfaces;
 using Data.Context;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.PurchasedGame.Remove(purchasedGame);
         }
 
-        public PurchasedGame GetItemByID(int id)
+        public async Task<PurchasedGame> GetItemByID(int id)
         {
-            return context.PurchasedGame.Find(id);
+            return await context.PurchasedGame.FindAsync(id);
         }
 
-        public IEnumerable<PurchasedGame> GetItems()
+        public async Task<IEnumerable<PurchasedGame>> GetItems()
         {
-            return context.PurchasedGame.ToList();
+            return await context.PurchasedGame.ToListAsync();
         }
 
-        public void InsertItem(PurchasedGame purchasedGame)
+        public async Task<PurchasedGame> InsertItem(PurchasedGame purchasedGame)
         {
-            context.PurchasedGame.Add(purchasedGame);
+            return (await context.PurchasedGame.AddAsync(purchasedGame)).Entity;
         }
 
         public void UpdateItem(PurchasedGame student)

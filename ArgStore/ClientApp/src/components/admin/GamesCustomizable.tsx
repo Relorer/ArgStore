@@ -1,10 +1,16 @@
-import React, { Component } from "react";
-import AppBar from "./AppBar";
-import Container from "@material-ui/core/Container";
-import GameList from "./GameList";
-import FiltersLeftMenu from "./FiltersLeftMenu";
-import { createStyles, Grid, makeStyles, Theme } from "@material-ui/core";
-import FiltersTopMenu from "./FiltersTopMenu";
+import {
+    Container,
+    createStyles,
+    Grid,
+    makeStyles,
+    Theme,
+} from "@material-ui/core";
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import FiltersLeftMenu from "../FiltersLeftMenu";
+import GameList from "../GameList";
+import FiltersTopMenu from "../FiltersTopMenu";
+import { getGames } from "../../api/GamesApi";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -12,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function Home() {
+export default function GamesCustomizable() {
     const classes = useStyles();
 
     return (
@@ -36,4 +42,7 @@ export default function Home() {
             </Container>
         </div>
     );
+}
+function useState(arg0: never[]): [any, any] {
+    throw new Error("Function not implemented.");
 }

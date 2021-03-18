@@ -10,37 +10,37 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import MailIcon from "@material-ui/icons/Mail";
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      background: "#f2f2f2",
-      padding: "20px 30px",
-      marginTop: "20px",
-      opacity: "0.7",
-      fontSize: "14px",
-    },
-  })
+    createStyles({
+        root: {
+            background: "#f2f2f2",
+            padding: "20px 30px",
+            marginTop: "20px",
+            opacity: "0.7",
+            fontSize: "14px",
+        },
+    })
 );
 
 export default function Footer() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
+    return (
+        <div className={classes.root}>
       Follow{" "}
-      <IconButton aria-label="upload picture" component="span">
-        <TwitterIcon />
-      </IconButton>
-      <IconButton aria-label="upload picture" component="span">
-        <FacebookIcon />
-      </IconButton>
-      <IconButton aria-label="upload picture" component="span">
-        <MailIcon />
-      </IconButton>
-      <div>
-        © 2002—2021 Компания ARGNET. Администрация Сайта не несет
+            <IconButton aria-label="upload picture" component="span">
+                <TwitterIcon />
+            </IconButton>
+            <IconButton aria-label="upload picture" component="span">
+                <FacebookIcon />
+            </IconButton>
+            <IconButton aria-label="upload picture" component="span">
+                <MailIcon />
+            </IconButton>
+            <div>
+        © 2021—2021 Компания ARGNET. Администрация Сайта не несет
         ответственности за размещаемые Пользователями материалы (в т.ч.
         информацию и изображения), их содержание и качество.
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 }

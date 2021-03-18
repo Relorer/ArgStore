@@ -5,7 +5,8 @@ using Data.Entities;
 using Data.Interfaces;
 using Data.Context;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -24,19 +25,19 @@ namespace Data.Repositories
             context.Genre.Remove(genre);
         }
 
-        public Genre GetItemByID(int id)
+        public async Task<Genre> GetItemByID(int id)
         {
-            return context.Genre.Find(id);
+            return await context.Genre.FindAsync(id);
         }
 
-        public IEnumerable<Genre> GetItems()
+        public async Task<IEnumerable<Genre>> GetItems()
         {
-            return context.Genre.ToList();
+            return await context.Genre.ToListAsync();
         }
 
-        public void InsertItem(Genre genre)
+        public async Task<Genre> InsertItem(Genre genre)
         {
-            context.Genre.Add(genre);
+            return (await context.Genre.AddAsync(genre)).Entity;
         }
 
         public void UpdateItem(Genre student)
