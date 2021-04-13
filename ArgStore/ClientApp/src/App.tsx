@@ -11,14 +11,14 @@ export default class App extends Component {
   static displayName = App.name;
 
   render() {
-      return (
-          <GamesServiceProvider>
-              <SearchAppBar></SearchAppBar>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/admin" component={GamesCustomizable} />
-              <Route exact path="/admin/:id" component={GameCustomizable} />
-              <Footer></Footer>
-          </GamesServiceProvider>
-      );
+    return (
+      <GamesServiceProvider>
+        <SearchAppBar></SearchAppBar>
+        {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/" component={GamesCustomizable} />
+        <Route exact path="/:id" component={GameCustomizable} />
+        <Footer></Footer>
+      </GamesServiceProvider>
+    );
   }
 }

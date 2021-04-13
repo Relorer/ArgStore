@@ -13,7 +13,7 @@ namespace Data.Entities
         public int PriceIncludingDiscount { get; set; }
         public string CoverPath { get; set; } 
         public Rating Rating { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public ICollection<Genre> Genres { get; set; }
     }
 }

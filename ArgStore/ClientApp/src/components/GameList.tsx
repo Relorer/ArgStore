@@ -9,60 +9,80 @@ import { getGames } from "../api/GamesApi";
 import { Game } from "../models/ApiModel";
 import { GamesServiceContext } from "../services/GamesServiceProvider";
 import { observer } from "mobx-react";
+import { Card, CardActionArea, CardContent } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            flexGrow: 1,
-            margin: 10,
-        },
-        control: {
-            padding: theme.spacing(2),
-        },
-        pagination: {
-            margin: "auto",
-        },
-        divider: {
-            width: "70%",
-            margin: "20px auto",
-        },
-    })
+  createStyles({
+    root: {
+      flexGrow: 1,
+      margin: 10,
+    },
+    control: {
+      padding: theme.spacing(2),
+    },
+    pagination: {
+      margin: "auto",
+    },
+    divider: {
+      width: "70%",
+      margin: "20px auto",
+    },
+    cover: {
+      width: "100px",
+    },
+  })
 );
 
 const GameList = observer(() => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const gamesService = useContext(GamesServiceContext);
-    if (!gamesService) {
-        return <p className="center">GamesServiceContext is missing</p>;
-    }
-    const { games, refreshGames } = gamesService;
+  const gamesService = useContext(GamesServiceContext);
+  if (!gamesService) {
+    return <p className="center">GamesServiceContext is missing</p>;
+  }
+  const { games, refreshGames, create } = gamesService;
 
-    useEffect(() => {
-        refreshGames();
-    }, []);
+  useEffect(() => {
+    refreshGames();
+  }, []);
 
-    return (
-        <Grid container justify="center" className={classes.root}>
-            <Grid item>
-                <Grid container spacing={1}>
-                    {games.map((value: Game) => (
-                        <Grid key={value.id} item>
-                            <GameCard />
-                        </Grid>
-                    ))}
-                </Grid>
+  const selectedGame = (games: Game[], id: number) => {
+    return games.find((element) => element.id === id);
+  };
+
+  return (
+    <Grid container justify="center" className={classes.root}>
+      <Grid item>
+        <Grid container spacing={1}>
+          {games.map((value: Game) => (
+            <Grid key={value.id} item>
+              <GameCard game={selectedGame(games, value.id || 0)} />
             </Grid>
-            <Divider className={classes.divider} />
-            <Pagination
-                color="primary"
-                className={classes.pagination}
-                count={10}
-                showFirstButton
-                showLastButton
-            />
+          ))}
+          <Grid item>
+            <Card>
+              <CardActionArea onClick={() => create()}>
+                <CardContent>
+                  <img
+                    className={classes.cover}
+                    src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/plus-512.png"
+                  ></img>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
         </Grid>
-    );
+      </Grid>
+      <Divider className={classes.divider} />
+      <Pagination
+        color="primary"
+        className={classes.pagination}
+        count={10}
+        showFirstButton
+        showLastButton
+      />
+    </Grid>
+  );
 });
 
 export default GameList;

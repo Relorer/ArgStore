@@ -30,7 +30,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Game>> GetItems()
         {
-            return await context.Game.ToListAsync();
+            return await context.Game.Include(p => p.Comments).ToListAsync();
         }
 
 

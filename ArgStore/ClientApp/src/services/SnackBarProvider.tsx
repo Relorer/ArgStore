@@ -16,7 +16,7 @@ interface IAlert {
 
 export const SnackBarContext = createContext<IAlertService | null>(null);
 
-export const SnackBarProvider = ({ children }) => {
+export const SnackBarProvider = ({ children }: any) => {
   const [alerts, setAlerts] = useState<IAlert[]>([]);
 
   useEffect(() => {

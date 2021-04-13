@@ -1,63 +1,63 @@
 export type BaseEntity = {
-  id: number;
+  id: number | undefined;
 };
 
 export type Basket = BaseEntity & {
-  Games: Game[];
-  User: User;
+  games: Game[];
+  user: User;
 };
 
 export type Comment = BaseEntity & {
-  Text: string;
-  User: User;
-  Game: Game;
+  text: string;
+  user: User;
+  game: Game;
 };
 
 export type Game = BaseEntity & {
-  Name: string;
-  Description: string;
-  ReleaseDate: Date;
-  Price: number;
-  PriceIncludingDiscount: number;
-  CoverPath: string;
-  Rating: Rating;
-  Comments: Comment[];
-  Genres: Genre[];
+  name: string;
+  description: string;
+  releaseDate: Date;
+  price: number;
+  priceIncludingDiscount: number;
+  coverPath: string;
+  rating: Rating | undefined
+  comments: Comment[] | undefined
+  genres: Genre[] | undefined
 };
 
 export type Genre = BaseEntity & {
-  Name: string;
-  Games: Game[];
+  name: string;
+  games: Game[];
 };
 
 export type Mark = BaseEntity & {
-  Value: string;
-  User: User;
-  Rating: Rating;
+  value: string;
+  user: User;
+  rating: Rating;
 };
 
 export type PurchasedGame = BaseEntity & {
-  Price: number;
-  Date: Date;
-  Game: Game;
-  PurchaseHistory: PurchaseHistory;
+  price: number;
+  date: Date;
+  game: Game;
+  purchaseHistory: PurchaseHistory;
 };
 
 export type PurchaseHistory = BaseEntity & {
-  PurchasedGame: PurchasedGame[];
-  User: User;
+  purchasedGame: PurchasedGame[];
+  user: User;
 };
 
 export type Rating = BaseEntity & {
-  Marks: Mark[];
+  marks: Mark[];
 };
 
 export type User = BaseEntity & {
-  FirstName: string;
-  LastName: string;
-  Login: string;
-  Password: string;
-  Basket: Basket;
-  Marks: Mark[];
-  Comments: Comment[];
+  firstName: string;
+  lastName: string;
+  login: string;
+  password: string;
+  basket: Basket;
+  marks: Mark[];
+  comments: Comment[];
 };
