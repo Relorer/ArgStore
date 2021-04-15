@@ -61,3 +61,20 @@ export type User = BaseEntity & {
   marks: Mark[];
   comments: Comment[];
 };
+
+export type RegisterForm = {
+  login: string;
+  password: string;
+  passwordConfirm: string;
+};
+
+export type LoginForm = {
+  login: string;
+  password: string;
+  rememberMe: boolean;
+};
+
+export type AuthInfo = {
+  isAuth: boolean;
+  user: User;
+};

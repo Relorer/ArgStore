@@ -1,10 +1,11 @@
 ﻿using Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Data.Context
 {
-    public class BaseContext : DbContext
+    public class BaseContext : IdentityDbContext<User>
     {
         public BaseContext() : base()
         {
@@ -28,6 +29,7 @@ namespace Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>()
             .HasOne(a => a.Basket)
             .WithOne(b => b.User)

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,8 @@ namespace Data.Context
     {
         public static IServiceCollection RegisterBaseContext(this IServiceCollection services, string connection)
         {
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<BaseContext>();
             services.AddScoped(typeof(DbContext), typeof(BaseContext));
             services.AddDbContext<BaseContext>(options => options.UseSqlServer(connection));
             return services;

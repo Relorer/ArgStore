@@ -9,6 +9,6 @@ namespace Data.Entities
     public abstract class BaseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }
