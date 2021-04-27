@@ -38,7 +38,7 @@ export const signout = async () => {
     return response;
 };
 
-export const isAuth = async () => {
+export const getAuthInfo = async () => {
     const response = await fetch(API_URL + "isAuthenticated", {
         method: "POST",
         headers: {

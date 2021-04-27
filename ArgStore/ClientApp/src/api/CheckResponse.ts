@@ -1,4 +1,5 @@
 const checkResponse = async (response: Response, place: string) => {
+    console.log(await response);
     if (!response.ok) {
         const standardErrorName = response.status + " " + response.statusText;
         let log = `In ${place}: ${standardErrorName}. `;

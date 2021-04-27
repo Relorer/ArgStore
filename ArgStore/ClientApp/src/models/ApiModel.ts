@@ -56,6 +56,7 @@ export type User = BaseEntity & {
   firstName: string;
   lastName: string;
   login: string;
+  userName: string;
   password: string;
   basket: Basket;
   marks: Mark[];
@@ -77,4 +78,5 @@ export type LoginForm = {
 export type AuthInfo = {
   isAuth: boolean;
   user: User;
+  role: string;
 };

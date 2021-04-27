@@ -1,5 +1,6 @@
 ﻿using BLL;
 using Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -42,6 +43,7 @@ namespace ArgStore.Controllers
             return game;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Game game)
         {
@@ -73,6 +75,7 @@ namespace ArgStore.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Game>> Create(Game game)
         {
@@ -87,6 +90,7 @@ namespace ArgStore.Controllers
             return resultGame;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteClient(int id)
         {

@@ -49,9 +49,7 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
   return (
     <Card className={classes.root}>
       <CardActionArea
-        onClick={() =>
-          document.location.replace(document.location.href + game.id)
-        }
+        onClick={() => (document.location = document.location.href + game.id)}
       >
         <CardContent>
           <img className={classes.cover} src={game.coverPath}></img>

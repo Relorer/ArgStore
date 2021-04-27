@@ -10,6 +10,7 @@ import { Game } from "../models/ApiModel";
 import { GamesServiceContext } from "../services/GamesServiceProvider";
 import { observer } from "mobx-react";
 import { Card, CardActionArea, CardContent } from "@material-ui/core";
+import { getAuthInfo } from "../api/Auth";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,6 +36,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const GameList = observer(() => {
   const classes = useStyles();
+  const [isAuth, setIsAuth] = useState(false);
+  const [role, setRole] = useState();
+
+  const checkAuth = async () => {
+    let res = await getAuthInfo();
+    setIsAuth(res.isAuth);
+    console.log(res);
+    if (res.isAuth) setRole(res.role);
+  };
+  checkAuth();
 
   const gamesService = useContext(GamesServiceContext);
   if (!gamesService) {
@@ -59,18 +70,22 @@ const GameList = observer(() => {
               <GameCard game={selectedGame(games, value.id || 0)} />
             </Grid>
           ))}
-          <Grid item>
-            <Card>
-              <CardActionArea onClick={() => create()}>
-                <CardContent>
-                  <img
-                    className={classes.cover}
-                    src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/plus-512.png"
-                  ></img>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
+          {isAuth && role == "admin" ? (
+            <Grid item>
+              <Card>
+                <CardActionArea onClick={() => create()}>
+                  <CardContent>
+                    <img
+                      className={classes.cover}
+                      src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/plus-512.png"
+                    ></img>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Grid>
       <Divider className={classes.divider} />

@@ -32,6 +32,7 @@ namespace ArgStore.Controllers
 
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "user");
                     await signInManager.SignInAsync(user, false);
                     var msg = new
                     {
@@ -116,9 +117,11 @@ namespace ArgStore.Controllers
         [Route("api/Account/isAuthenticated")]
         public async Task<IActionResult> LogisAuthenticatedOff()
         {
-            User usr = await GetCurrentUserAsync();
-            bool isAuth = usr != null;
-            var msg = new { isAuth, usr };
+            User user = await GetCurrentUserAsync();
+            bool isAuth = user != null;
+            string role = user != null ? (await userManager.GetRolesAsync(user)).FirstOrDefault() : "";
+
+            var msg = new { isAuth, user, role };
             return Ok(msg);
         }
 
