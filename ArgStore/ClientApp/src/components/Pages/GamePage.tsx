@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             margin: "20px 0 0 0",
         },
-        leftCol: {},
-        rigtCol: {},
         textField: {
             width: "100%",
             margin: "10px 0",
@@ -87,7 +85,7 @@ const GamePage = observer(() => {
 
     return (
         <Grid container className={classes.root} spacing={3}>
-            <Grid xs={3} item className={classes.leftCol}>
+            <Grid xs={3} item>
                 <img className={classes.cover} src={coverPath}></img>
                 <h3>${priceIncludingDiscount}</h3>
                 <Button className={classes.button} variant="contained" color="primary">
