@@ -3,9 +3,7 @@ import { GamesService } from "./GamesService";
 
 import { SnackBarContext } from "./SnackBarProvider";
 
-export const GamesServiceContext = createContext<GamesService | null>(
-    null
-);
+export const GamesServiceContext = createContext<GamesService | null>(null);
 
 export const GamesServiceProvider: React.FC = ({ children }) => {
     const snackBar = useContext(SnackBarContext);

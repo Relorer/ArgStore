@@ -7,8 +7,8 @@ export const signup = async (register: RegisterForm) => {
     const response = await fetch(API_URL + "signup", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-          },
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify(register),
     });
     await checkResponse(response, "signup");
@@ -19,8 +19,8 @@ export const signin = async (register: LoginForm) => {
     const response = await fetch(API_URL + "signin", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-          },
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify(register),
     });
     await checkResponse(response, "signin");
@@ -31,8 +31,8 @@ export const signout = async () => {
     const response = await fetch(API_URL + "signout", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-          },
+            "Content-Type": "application/json",
+        },
     });
     await checkResponse(response, "signout");
     return response;
@@ -42,8 +42,8 @@ export const getAuthInfo = async () => {
     const response = await fetch(API_URL + "authinfo", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-          },
+            "Content-Type": "application/json",
+        },
     });
     await checkResponse(response, "isAuth");
     return (await response.json()) as AuthInfo;

@@ -22,8 +22,8 @@ export const updateGame = async (game: Game) => {
     const response = await fetch(gameApiUrl, {
         method: "PUT",
         headers: {
-            'Content-Type': 'application/json'
-          },
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify(game),
     });
     await checkResponse(response, "updateGame");
@@ -34,8 +34,8 @@ export const insertGame = async (game: Game) => {
     const response = await fetch(API_URL, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-          },
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify(game),
     });
     await checkResponse(response, "insertGame");

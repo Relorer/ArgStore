@@ -11,28 +11,28 @@ export class GamesService {
   constructor(notify: Notify = (mes) => console.log(mes)) {
       this.notify = notify;
       makeObservable(this, {
-        games: observable,
-        refreshGames: action.bound,
-        update: action.bound,
-        remove: action.bound,
-        create: action.bound,
-        });
+          games: observable,
+          refreshGames: action.bound,
+          update: action.bound,
+          remove: action.bound,
+          create: action.bound,
+      });
   }
 
   public async create() {
       try {
-        const _game: Game = {
-          id: undefined,
-          name: "Nameless",
-          description: "",
-          price: 0,
-          priceIncludingDiscount: 0,
-          coverPath: "",
-          releaseDate: new Date(),
-          rating: undefined,
-          comments: undefined,
-          genres: undefined,
-        };
+          const _game: Game = {
+              id: undefined,
+              name: "Nameless",
+              description: "",
+              price: 0,
+              priceIncludingDiscount: 0,
+              coverPath: "",
+              releaseDate: new Date(),
+              rating: undefined,
+              comments: undefined,
+              genres: undefined,
+          };
           await insertGame(_game);
           await this.refreshGames();
       } catch (e) {

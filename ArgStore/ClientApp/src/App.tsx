@@ -13,17 +13,17 @@ export default class App extends Component {
   static displayName = App.name;
 
   render() {
-    return (
-      <GamesServiceProvider>
-        <SearchAppBar></SearchAppBar>
-        <Switch>
-          <Route exact path="/" component={GameListPage} />
-          <Route exact path="/signup" component={SignupPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/:id" component={GamePage} />
-        </Switch>
-        <Footer></Footer>
-      </GamesServiceProvider>
-    );
+      return (
+          <GamesServiceProvider>
+              <SearchAppBar></SearchAppBar>
+              <Switch>
+                  <Route exact path="/" component={GameListPage} />
+                  <Route exact path="/signup" component={SignupPage} />
+                  <Route exact path="/login" component={LoginPage} />
+                  <Route exact path="/:id" component={GamePage} />
+              </Switch>
+              <Footer></Footer>
+          </GamesServiceProvider>
+      );
   }
 }

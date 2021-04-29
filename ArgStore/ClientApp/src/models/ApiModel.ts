@@ -20,9 +20,9 @@ export type Game = BaseEntity & {
   price: number;
   priceIncludingDiscount: number;
   coverPath: string;
-  rating: Rating | undefined
-  comments: Comment[] | undefined
-  genres: Genre[] | undefined
+  rating: Rating | undefined;
+  comments: Comment[] | undefined;
+  genres: Genre[] | undefined;
 };
 
 export type Genre = BaseEntity & {
