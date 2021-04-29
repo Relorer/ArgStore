@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArgStore.Models
 {
-    public class RegisterModel
+    public class SignupModel
     {
         [Required]
         [Display(Name = "Login")]

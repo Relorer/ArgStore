@@ -1,7 +1,9 @@
 import {
   Button,
+  Checkbox,
   Container,
   createStyles,
+  FormControlLabel,
   Grid,
   makeStyles,
   Theme,
@@ -10,8 +12,8 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { useParams } from "react-router";
 import TextField from "@material-ui/core/TextField";
-import { signup } from "../api/Auth";
-import { SnackBarContext } from "../services/SnackBarProvider";
+import { signin, signup } from "../../api/Auth";
+import { SnackBarContext } from "../../services/SnackBarProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,21 +31,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Register = () => {
+const LoginPage = () => {
   const classes = useStyles();
   const snackBar = useContext(SnackBarContext);
   const { notify } = snackBar || {};
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
-  var _signup = async () => {
+  var _login = async () => {
     try {
-      await signup({
+      await signin({
         login: login,
         password: password,
-        passwordConfirm: passwordConfirm,
+        rememberMe: rememberMe,
       });
       window.history.back();
     } catch (e) {
@@ -54,7 +56,7 @@ const Register = () => {
 
   return (
     <div className={classes.root}>
-      <h1>Регистрация</h1>
+      <h1>Авторизация</h1>
       <TextField
         label="Логин"
         className={classes.textField}
@@ -74,22 +76,23 @@ const Register = () => {
         }}
         onChange={(v) => setPassword(v.target.value)}
       />
-      <TextField
-        label="Повторите пароль"
-        type="password"
-        className={classes.textField}
-        value={passwordConfirm}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={(v: any) => setPasswordConfirm(v.target.value)}
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
+            color="primary"
+          />
+        }
+        label="Запомнить меня"
       />
+      <br></br>
       <Button
         variant="contained"
         color="primary"
         className={classes.button}
         onClick={() => {
-          _signup();
+          _login();
         }}
       >
         Подтвердить
@@ -98,4 +101,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default LoginPage;

@@ -1,9 +1,7 @@
 import {
   Button,
-  Checkbox,
   Container,
   createStyles,
-  FormControlLabel,
   Grid,
   makeStyles,
   Theme,
@@ -12,8 +10,8 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { useParams } from "react-router";
 import TextField from "@material-ui/core/TextField";
-import { signin, signup } from "../api/Auth";
-import { SnackBarContext } from "../services/SnackBarProvider";
+import { signup } from "../../api/Auth";
+import { SnackBarContext } from "../../services/SnackBarProvider";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,21 +29,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Login = () => {
+const SignupPage = () => {
   const classes = useStyles();
   const snackBar = useContext(SnackBarContext);
   const { notify } = snackBar || {};
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  var _login = async () => {
+  var _signup = async () => {
     try {
-      await signin({
+      await signup({
         login: login,
         password: password,
-        rememberMe: rememberMe,
+        passwordConfirm: passwordConfirm,
       });
       window.history.back();
     } catch (e) {
@@ -56,7 +54,7 @@ const Login = () => {
 
   return (
     <div className={classes.root}>
-      <h1>Авторизация</h1>
+      <h1>Регистрация</h1>
       <TextField
         label="Логин"
         className={classes.textField}
@@ -76,23 +74,22 @@ const Login = () => {
         }}
         onChange={(v) => setPassword(v.target.value)}
       />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={rememberMe}
-            onChange={() => setRememberMe(!rememberMe)}
-            color="primary"
-          />
-        }
-        label="Запомнить меня"
+      <TextField
+        label="Повторите пароль"
+        type="password"
+        className={classes.textField}
+        value={passwordConfirm}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={(v: any) => setPasswordConfirm(v.target.value)}
       />
-      <br></br>
       <Button
         variant="contained"
         color="primary"
         className={classes.button}
         onClick={() => {
-          _login();
+          _signup();
         }}
       >
         Подтвердить
@@ -101,4 +98,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignupPage;

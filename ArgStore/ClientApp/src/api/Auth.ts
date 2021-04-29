@@ -1,10 +1,10 @@
 import { AuthInfo, LoginForm, RegisterForm } from "../models/ApiModel";
 import checkResponse from "./CheckResponse";
 
-const API_URL = "/api/Account/";
+const API_URL = "/api/";
 
 export const signup = async (register: RegisterForm) => {
-    const response = await fetch(API_URL + "Register", {
+    const response = await fetch(API_URL + "signup", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ export const signup = async (register: RegisterForm) => {
 };
 
 export const signin = async (register: LoginForm) => {
-    const response = await fetch(API_URL + "Login", {
+    const response = await fetch(API_URL + "signin", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export const signin = async (register: LoginForm) => {
 };
 
 export const signout = async () => {
-    const response = await fetch(API_URL + "LogOut", {
+    const response = await fetch(API_URL + "signout", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ export const signout = async () => {
 };
 
 export const getAuthInfo = async () => {
-    const response = await fetch(API_URL + "isAuthenticated", {
+    const response = await fetch(API_URL + "authinfo", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

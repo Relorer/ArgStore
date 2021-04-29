@@ -9,7 +9,7 @@ export const getGames = async (): Promise<Game[]> => {
     return (await response.json()) as Game[];
 };
 
-export const getGame = async (id: number): Promise<Game> => {
+export const getGame = async (id: string): Promise<Game> => {
     const gameApiUrl = `${API_URL}/${id}`;
     const response = await fetch(gameApiUrl);
     await checkResponse(response, "getGame");
@@ -42,7 +42,7 @@ export const insertGame = async (game: Game) => {
     return response;
 };
 
-export const deleteGame = async (id: number) => {
+export const deleteGame = async (id: string) => {
     const gameApiUrl = `${API_URL}/${id}`;
     const response = await fetch(gameApiUrl, {
         method: "DELETE",

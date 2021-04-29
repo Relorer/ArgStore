@@ -1,5 +1,5 @@
 export type BaseEntity = {
-  id: number | undefined;
+  id: string | undefined;
 };
 
 export type Basket = BaseEntity & {

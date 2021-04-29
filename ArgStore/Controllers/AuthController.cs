@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 namespace ArgStore.Controllers
 {
     [Produces("application/json")]
-    public class AccountController : Controller
+    public class AuthController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
 
         [HttpPost]
-        [Route("api/Account/Register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        [Route("api/signup")]
+        public async Task<IActionResult> Register([FromBody] SignupModel model)
         {
             if (ModelState.IsValid)
             {
@@ -65,8 +65,8 @@ namespace ArgStore.Controllers
             }
         }
 
-        [Route("api/Account/Login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        [Route("api/signin")]
+        public async Task<IActionResult> Login([FromBody] SigninModel model)
         {
             if (ModelState.IsValid)
             {
@@ -102,8 +102,8 @@ namespace ArgStore.Controllers
         }
 
         [HttpPost]
-        [Route("api/Account/LogOut")]
-        public async Task<IActionResult> LogOff()
+        [Route("api/signout")]
+        public async Task<IActionResult> Signout()
         {
             await signInManager.SignOutAsync();
             var msg = new
@@ -114,12 +114,12 @@ namespace ArgStore.Controllers
         }
 
         [HttpPost]
-        [Route("api/Account/isAuthenticated")]
-        public async Task<IActionResult> LogisAuthenticatedOff()
+        [Route("api/authinfo")]
+        public async Task<IActionResult> AuthInfo()
         {
             User user = await GetCurrentUserAsync();
             bool isAuth = user != null;
-            string role = user != null ? (await userManager.GetRolesAsync(user)).FirstOrDefault() : "";
+            string role = isAuth ? (await userManager.GetRolesAsync(user)).FirstOrDefault() : "";
 
             var msg = new { isAuth, user, role };
             return Ok(msg);

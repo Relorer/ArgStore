@@ -4,13 +4,13 @@ import Grid, { GridSpacing } from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Pagination from "@material-ui/lab/Pagination";
 import Divider from "@material-ui/core/Divider";
-import GameCard from "./GameCard";
-import { getGames } from "../api/GamesApi";
-import { Game } from "../models/ApiModel";
-import { GamesServiceContext } from "../services/GamesServiceProvider";
+import GameCard from "../GameCard";
+import { getGames } from "../../api/GamesApi";
+import { Game } from "../../models/ApiModel";
+import { GamesServiceContext } from "../../services/GamesServiceProvider";
 import { observer } from "mobx-react";
 import { Card, CardActionArea, CardContent } from "@material-ui/core";
-import { getAuthInfo } from "../api/Auth";
+import { getAuthInfo } from "../../api/Auth";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GameList = observer(() => {
+const GameListPage = observer(() => {
   const classes = useStyles();
   const [isAuth, setIsAuth] = useState(false);
   const [role, setRole] = useState();
@@ -89,15 +89,15 @@ const GameList = observer(() => {
         </Grid>
       </Grid>
       <Divider className={classes.divider} />
-      <Pagination
+      {/* <Pagination
         color="primary"
         className={classes.pagination}
         count={10}
         showFirstButton
         showLastButton
-      />
+      /> */}
     </Grid>
   );
 });
 
-export default GameList;
+export default GameListPage;
