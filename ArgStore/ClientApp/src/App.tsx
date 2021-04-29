@@ -8,6 +8,7 @@ import Game from "./components/Pages/GamePage";
 import GameListPage from "./components/Pages/GameListPage";
 import GamePage from "./components/Pages/GamePage";
 import SignupPage from "./components/Pages/SignupPage";
+import { Container } from "@material-ui/core";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -16,12 +17,14 @@ export default class App extends Component {
       return (
           <GamesServiceProvider>
               <SearchAppBar></SearchAppBar>
-              <Switch>
-                  <Route exact path="/" component={GameListPage} />
-                  <Route exact path="/signup" component={SignupPage} />
-                  <Route exact path="/login" component={LoginPage} />
-                  <Route exact path="/:id" component={GamePage} />
-              </Switch>
+              <Container>
+                  <Switch>
+                      <Route exact path="/" component={GameListPage} />
+                      <Route exact path="/signup" component={SignupPage} />
+                      <Route exact path="/login" component={LoginPage} />
+                      <Route exact path="/:id" component={GamePage} />
+                  </Switch>
+              </Container>
               <Footer></Footer>
           </GamesServiceProvider>
       );

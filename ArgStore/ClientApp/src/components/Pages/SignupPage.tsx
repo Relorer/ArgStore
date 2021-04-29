@@ -13,7 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import { signup } from "../../api/Auth";
 import { SnackBarContext } from "../../services/SnackBarProvider";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             padding: "10px",

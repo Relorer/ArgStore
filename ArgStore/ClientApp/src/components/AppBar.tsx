@@ -4,16 +4,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import {
     createStyles,
     fade,
     Theme,
     makeStyles,
 } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import { Badge, Button } from "@material-ui/core";
+import { Badge, Button, Link } from "@material-ui/core";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { getAuthInfo, signout } from "../api/Auth";
 
@@ -58,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: "center",
             justifyContent: "center",
         },
-        inputInput: {
+        input: {
             padding: theme.spacing(1, 1, 1, 0),
             paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
             transition: theme.transitions.create("width"),
@@ -76,9 +74,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchAppBar() {
     const classes = useStyles();
     const [isAuth, setIsAuth] = useState(false);
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<string | null>(null);
 
-    const checkAuth = async () => {
+    const checkAuth = async (): Promise<void> => {
         const res = await getAuthInfo();
         setIsAuth(res.isAuth);
         console.log(res);
@@ -90,9 +88,16 @@ export default function SearchAppBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Link
+                        className={classes.title}
+                        color="inherit"
+                        variant="h6"
+                        noWrap
+                        underline="none"
+                        href="./"
+                    >
             ArgStore
-                    </Typography>
+                    </Link>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -100,8 +105,7 @@ export default function SearchAppBar() {
                         <InputBase
                             placeholder="Search…"
                             classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
+                                input: classes.input,
                             }}
                             inputProps={{ "aria-label": "search" }}
                         />
@@ -117,7 +121,7 @@ export default function SearchAppBar() {
                             <Typography>{user}</Typography>
                             <Button
                                 className={classes.button}
-                                onClick={async () => {
+                                onClick={async (): Promise<void> => {
                                     await signout();
                                     await checkAuth();
                                 }}
@@ -129,17 +133,17 @@ export default function SearchAppBar() {
                         <>
                             <Button
                                 className={classes.button}
-                                onClick={() =>
-                                    (document.location = document.location.href + "login")
-                                }
+                                onClick={(): void => {
+                                    document.location.href = document.location.href + "signin";
+                                }}
                             >
                 Login
                             </Button>
                             <Button
                                 className={classes.button}
-                                onClick={() =>
-                                    (document.location = document.location.href + "register")
-                                }
+                                onClick={(): void => {
+                                    document.location.href = document.location.href + "signup";
+                                }}
                             >
                 Signup
                             </Button>

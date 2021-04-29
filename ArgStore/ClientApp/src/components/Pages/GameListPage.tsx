@@ -66,26 +66,6 @@ const GameListPage = observer(() => {
                             <GameCard game={selectedGame(games, value.id || "")} />
                         </Grid>
                     ))}
-                    {isAuth && role == "admin" ? (
-                        <Grid item>
-                            <Card>
-                                <CardActionArea
-                                    onClick={(): void => {
-                                        create();
-                                    }}
-                                >
-                                    <CardContent>
-                                        <img
-                                            className={classes.cover}
-                                            src="https://cdn2.iconfinder.com/data/icons/arrows-and-universal-actions-icon-set/256/plus-512.png"
-                                        ></img>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                    ) : (
-                        <></>
-                    )}
                 </Grid>
             </Grid>
             <Divider className={classes.divider} />
