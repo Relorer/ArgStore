@@ -78,5 +78,7 @@ export type LoginForm = {
 export type AuthInfo = {
   isAuth: boolean;
   user: User;
-  role: string;
+  role: Role;
 };
+
+export type Role = "admin" | "user" | "noauth";
