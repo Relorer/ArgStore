@@ -24,7 +24,7 @@ const useStyles = makeStyles(() =>
             boxSizing: "border-box",
         },
         button: {
-            margin: "10px",
+            margin: "10px 0 0 0",
         },
     })
 );

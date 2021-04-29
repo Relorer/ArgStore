@@ -30,11 +30,7 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
     const classes = useStyles();
     return (
         <Card className={classes.root}>
-            <CardActionArea
-                onClick={(): void => {
-                    document.location.href = window.location.origin + "/" + game.id;
-                }}
-            >
+            <CardActionArea href={game.id}>
                 <CardContent>
                     <img className={classes.cover} src={game.coverPath} />
                     <Typography className={classes.title}>{game.name}</Typography>

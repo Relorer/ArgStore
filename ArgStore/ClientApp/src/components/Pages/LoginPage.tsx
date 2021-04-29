@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
             boxSizing: "border-box",
         },
         button: {
-            margin: "10px",
+            margin: "10px 0 0 0",
         },
     })
 );
@@ -76,7 +76,7 @@ const LoginPage = () => {
                 }}
                 onChange={(v): void => setPassword(v.target.value)}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
                 control={
                     <Checkbox
                         checked={rememberMe}
@@ -85,7 +85,7 @@ const LoginPage = () => {
                     />
                 }
                 label="Запомнить меня"
-            />
+            /> */}
             <br></br>
             <Button
                 variant="contained"

@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
         menuButton: {
             marginRight: theme.spacing(2),
         },
+        username: {
+            margin: "0 0 0 10px",
+        },
         title: {
             flexGrow: 1,
             display: "none",
@@ -113,12 +116,17 @@ export default function SearchAppBar() {
                     </div>
                     {isAuth ? (
                         <>
-                            <Typography>{user}</Typography>
-                            <IconButton aria-label="show 4 new mails" color="inherit">
+                            <IconButton
+                                className={classes.button}
+                                aria-label="show 4 new mails"
+                                color="inherit"
+                                href="/basket"
+                            >
                                 <Badge badgeContent={4} color="secondary">
                                     <ShoppingBasketIcon />
                                 </Badge>
                             </IconButton>
+                            <Typography className={classes.username}>{user}</Typography>
                             <Button
                                 className={classes.button}
                                 onClick={async (): Promise<void> => {
@@ -131,22 +139,10 @@ export default function SearchAppBar() {
                         </>
                     ) : (
                         <>
-                            <Button
-                                className={classes.button}
-                                onClick={(): void => {
-                                    document.location.href =
-                    window.location.origin + "/" + "signin";
-                                }}
-                            >
+                            <Button className={classes.button} href="signin">
                 Login
                             </Button>
-                            <Button
-                                className={classes.button}
-                                onClick={(): void => {
-                                    document.location.href =
-                    window.location.origin + "/" + "signup";
-                                }}
-                            >
+                            <Button className={classes.button} href="signup">
                 Signup
                             </Button>
                         </>
