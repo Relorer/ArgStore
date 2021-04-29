@@ -8,7 +8,7 @@ export class GamesService {
   public games: Game[] = [];
 
   public notify: Notify;
-  constructor(notify: Notify = (mes) => console.log(mes)) {
+  constructor(notify: Notify = (mes): void => {console.log(mes);}) {
       this.notify = notify;
       makeObservable(this, {
           games: observable,
@@ -19,7 +19,7 @@ export class GamesService {
       });
   }
 
-  public async create() {
+  public async create(): Promise<void> {
       try {
           const _game: Game = {
               id: undefined,
@@ -40,7 +40,7 @@ export class GamesService {
       }
   }
 
-  public async update(game: Game) {
+  public async update(game: Game): Promise<void> {
       try {
           await updateGame(game);
           this.notify("Updated", "success");
@@ -49,16 +49,16 @@ export class GamesService {
       }
   }
 
-  public async remove(game: Game) {
+  public async remove(game: Game): Promise<void> {
       try {
-          await deleteGame(game.id || 0);
+          await deleteGame(game.id || "");
           this.games = this.games.filter((element) => element !== game);
       } catch (e) {
           this.notify(e.message, "error");
       }
   }
 
-  public async refreshGames() {
+  public async refreshGames(): Promise<void> {
       try {
           this.games = await getGames();
       } catch (e) {

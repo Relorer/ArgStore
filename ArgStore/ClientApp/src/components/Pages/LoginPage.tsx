@@ -64,7 +64,7 @@ const LoginPage = () => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v) => setLogin(v.target.value)}
+                onChange={(v): void => setLogin(v.target.value)}
             />
             <TextField
                 label="Пароль"
@@ -74,13 +74,13 @@ const LoginPage = () => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v) => setPassword(v.target.value)}
+                onChange={(v): void  => setPassword(v.target.value)}
             />
             <FormControlLabel
                 control={
                     <Checkbox
                         checked={rememberMe}
-                        onChange={() => setRememberMe(!rememberMe)}
+                        onChange={(): void  => setRememberMe(!rememberMe)}
                         color="primary"
                     />
                 }
@@ -91,9 +91,7 @@ const LoginPage = () => {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => {
-                    _login();
-                }}
+                onClick={() : void => _login()}
             >
         Подтвердить
             </Button>

@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
             transition: theme.transitions.create("width"),
             width: "100%",
+            color: "white",
             [theme.breakpoints.up("sm")]: {
                 width: "12ch",
                 "&:focus": {
@@ -79,7 +80,6 @@ export default function SearchAppBar() {
     const checkAuth = async (): Promise<void> => {
         const res = await getAuthInfo();
         setIsAuth(res.isAuth);
-        console.log(res);
         if (res.isAuth) setUser(res.user.userName);
     };
     checkAuth();

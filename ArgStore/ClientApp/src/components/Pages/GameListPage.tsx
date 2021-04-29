@@ -53,8 +53,10 @@ const GameListPage = observer(() => {
         refreshGames();
     }, []);
 
-    const selectedGame = (games: Game[], id: string): Game | undefined => {
-        return games.find((element) => element.id === id);
+    const selectedGame = (id: string): Game => {
+        const result = games.find((element) => element.id === id);
+        if (result) return result;
+        throw "id is not found";
     };
 
     return (
@@ -63,7 +65,7 @@ const GameListPage = observer(() => {
                 <Grid container spacing={1}>
                     {games.map((value: Game) => (
                         <Grid key={value.id} item>
-                            <GameCard game={selectedGame(games, value.id || "")} />
+                            <GameCard game={selectedGame(value.id || "")} />
                         </Grid>
                     ))}
                 </Grid>

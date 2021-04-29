@@ -12,6 +12,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Data.Entities;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ArgStore
 {
@@ -74,7 +76,14 @@ namespace ArgStore
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+            Path.Combine(env.ContentRootPath, "ClientApp/public/images")),
+                RequestPath = "/images"
+            });
+
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();

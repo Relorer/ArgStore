@@ -10,6 +10,7 @@ import { Game } from "../models/ApiModel";
 const useStyles = makeStyles({
     root: {
         width: 240,
+        height: "100%",
         boxShadow: "none",
         background: "transparent",
     },
@@ -22,37 +23,19 @@ const useStyles = makeStyles({
 });
 
 type GameCardProps = {
-  game: Game | undefined;
+  game: Game;
 };
+
 
 const GameCard: FC<GameCardProps> = ({ game }) => {
     const classes = useStyles();
-    console.log("adf" + JSON.stringify(game));
-    console.log(game?.name);
-    if (!game) {
-        console.log("asd");
-        return (
-            <Card className={classes.root}>
-                <CardActionArea>
-                    <CardContent>
-                        <img
-                            className={classes.cover}
-                            src="https://safetyaustraliagroup.com.au/wp-content/uploads/2019/05/image-not-found.png"
-                        ></img>
-                        <Typography className={classes.title}>Not found</Typography>
-                        <Typography></Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        );
-    }
     return (
         <Card className={classes.root}>
             <CardActionArea
-                onClick={() => (document.location = document.location.href + game.id)}
+                onClick={(): void => {(document.location.href = document.location.href + game.id);}}
             >
                 <CardContent>
-                    <img className={classes.cover} src={game.coverPath}></img>
+                    <img className={classes.cover} src={game.coverPath}/>
                     <Typography className={classes.title}>{game.name}</Typography>
                     <Typography>{game.priceIncludingDiscount} $</Typography>
                 </CardContent>

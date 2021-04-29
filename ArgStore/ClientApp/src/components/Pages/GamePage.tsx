@@ -1,16 +1,10 @@
 import {
     Button,
-    Container,
     createStyles,
-    Grid,
     makeStyles,
     Theme,
 } from "@material-ui/core";
-import React, { FC, useContext, useEffect, useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import FiltersLeftMenu from "../FiltersLeftMenu";
-import GameListPage from "./GameListPage";
-import FiltersTopMenu from "../FiltersTopMenu";
+import React, { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { GamesServiceContext } from "../../services/GamesServiceProvider";
 import { Game } from "../../models/ApiModel";
@@ -91,7 +85,7 @@ const GamePage = observer(() => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v) => setName(v.target.value)}
+                onChange={(v): void => setName(v.target.value)}
             />
             <TextField
                 label="Description"
@@ -100,7 +94,7 @@ const GamePage = observer(() => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v) => setDescription(v.target.value)}
+                onChange={(v): void => setDescription(v.target.value)}
             />
             <TextField
                 label="Price"
@@ -110,7 +104,7 @@ const GamePage = observer(() => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v: any) => setPrice(v.target.value)}
+                onChange={(v): void => {if (typeof v.target.value === "number") setPrice(v.target.value);}}
             />
             <TextField
                 label="Price Including Discount"
@@ -120,13 +114,13 @@ const GamePage = observer(() => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v: any) => setPriceIncludingDiscount(v.target.value)}
+                onChange={(v): void => {if (typeof v.target.value === "number") setPriceIncludingDiscount(v.target.value);}}
             />
             <Button
                 variant="contained"
                 color="secondary"
                 className={classes.button}
-                onClick={() => {
+                onClick={(): void => {
                     remove(selectedGame(games, id));
                     document.location.replace("/");
                 }}
@@ -137,7 +131,7 @@ const GamePage = observer(() => {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => {
+                onClick={(): void => {
                     const game = selectedGame(games, id);
                     const _game: Game = {
                         id: game.id,
