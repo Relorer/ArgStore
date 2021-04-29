@@ -1,23 +1,37 @@
-import { Button, createStyles, makeStyles, Theme } from "@material-ui/core";
+import {
+    Box,
+    Button,
+    createStyles,
+    Grid,
+    makeStyles,
+    Theme,
+    Typography,
+} from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { GamesServiceContext } from "../../services/GamesServiceProvider";
 import { Game } from "../../models/ApiModel";
 import { useParams } from "react-router";
 import TextField from "@material-ui/core/TextField";
+import { Rating } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            padding: "10px",
+            margin: "20px 0 0 0",
         },
+        leftCol: {},
+        rigtCol: {},
         textField: {
             width: "100%",
             margin: "10px 0",
             boxSizing: "border-box",
         },
+        cover: {
+            width: "100%",
+        },
         button: {
-            margin: "10px",
+            margin: "0 10px 0 0",
         },
     })
 );
@@ -72,8 +86,38 @@ const GamePage = observer(() => {
     }, [games]);
 
     return (
-        <div className={classes.root}>
-            <TextField
+        <Grid container className={classes.root} spacing={3}>
+            <Grid xs={3} item className={classes.leftCol}>
+                <img className={classes.cover} src={coverPath}></img>
+                <h3>${priceIncludingDiscount}</h3>
+                <Button className={classes.button} variant="contained" color="primary">
+          В корзину
+                </Button>
+                <Button variant="contained" color="secondary">
+          Купить
+                </Button>
+            </Grid>
+            <Grid xs={8} item>
+                <h2>{name}</h2>
+                <Rating
+                    name="simple-controlled"
+                    value={1}
+                    size="large"
+                    onChange={(event, newValue) => {
+                        // setValue(newValue);
+                    }}
+                />
+                <h3>Описание</h3>
+                <Typography>{description}</Typography>
+            </Grid>
+        </Grid>
+    );
+});
+
+export default GamePage;
+
+{
+    /* <TextField
                 label="Name"
                 className={classes.textField}
                 value={name}
@@ -149,9 +193,5 @@ const GamePage = observer(() => {
                 }}
             >
         Save
-            </Button>
-        </div>
-    );
-});
-
-export default GamePage;
+            </Button> */
+}

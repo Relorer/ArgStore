@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         button: {
             color: "white",
+            margin: "0 0 0 10px",
         },
         search: {
             position: "relative",
@@ -110,15 +111,14 @@ export default function SearchAppBar() {
                             inputProps={{ "aria-label": "search" }}
                         />
                     </div>
-                    <IconButton aria-label="show 4 new mails" color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <ShoppingBasketIcon />
-                        </Badge>
-                    </IconButton>
-
                     {isAuth ? (
                         <>
                             <Typography>{user}</Typography>
+                            <IconButton aria-label="show 4 new mails" color="inherit">
+                                <Badge badgeContent={4} color="secondary">
+                                    <ShoppingBasketIcon />
+                                </Badge>
+                            </IconButton>
                             <Button
                                 className={classes.button}
                                 onClick={async (): Promise<void> => {
@@ -134,7 +134,8 @@ export default function SearchAppBar() {
                             <Button
                                 className={classes.button}
                                 onClick={(): void => {
-                                    document.location.href = document.location.href + "signin";
+                                    document.location.href =
+                    window.location.origin + "/" + "signin";
                                 }}
                             >
                 Login
@@ -142,7 +143,8 @@ export default function SearchAppBar() {
                             <Button
                                 className={classes.button}
                                 onClick={(): void => {
-                                    document.location.href = document.location.href + "signup";
+                                    document.location.href =
+                    window.location.origin + "/" + "signup";
                                 }}
                             >
                 Signup

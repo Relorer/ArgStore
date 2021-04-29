@@ -32,7 +32,7 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
         <Card className={classes.root}>
             <CardActionArea
                 onClick={(): void => {
-                    document.location.href = document.location.href + game.id;
+                    document.location.href = window.location.origin + "/" + game.id;
                 }}
             >
                 <CardContent>
