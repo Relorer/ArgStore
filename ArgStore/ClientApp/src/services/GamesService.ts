@@ -8,7 +8,11 @@ export class GamesService {
   public games: Game[] = [];
 
   public notify: Notify;
-  constructor(notify: Notify = (mes): void => {console.log(mes);}) {
+  constructor(
+      notify: Notify = (mes): void => {
+          console.log(mes);
+      }
+  ) {
       this.notify = notify;
       makeObservable(this, {
           games: observable,

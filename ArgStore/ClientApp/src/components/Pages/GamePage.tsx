@@ -1,9 +1,4 @@
-import {
-    Button,
-    createStyles,
-    makeStyles,
-    Theme,
-} from "@material-ui/core";
+import { Button, createStyles, makeStyles, Theme } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { GamesServiceContext } from "../../services/GamesServiceProvider";
@@ -104,7 +99,9 @@ const GamePage = observer(() => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v): void => {if (typeof v.target.value === "number") setPrice(v.target.value);}}
+                onChange={(v): void => {
+                    if (typeof v.target.value === "number") setPrice(v.target.value);
+                }}
             />
             <TextField
                 label="Price Including Discount"
@@ -114,7 +111,10 @@ const GamePage = observer(() => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(v): void => {if (typeof v.target.value === "number") setPriceIncludingDiscount(v.target.value);}}
+                onChange={(v): void => {
+                    if (typeof v.target.value === "number")
+                        setPriceIncludingDiscount(v.target.value);
+                }}
             />
             <Button
                 variant="contained"

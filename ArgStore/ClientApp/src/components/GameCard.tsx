@@ -26,16 +26,17 @@ type GameCardProps = {
   game: Game;
 };
 
-
 const GameCard: FC<GameCardProps> = ({ game }) => {
     const classes = useStyles();
     return (
         <Card className={classes.root}>
             <CardActionArea
-                onClick={(): void => {(document.location.href = document.location.href + game.id);}}
+                onClick={(): void => {
+                    document.location.href = document.location.href + game.id;
+                }}
             >
                 <CardContent>
-                    <img className={classes.cover} src={game.coverPath}/>
+                    <img className={classes.cover} src={game.coverPath} />
                     <Typography className={classes.title}>{game.name}</Typography>
                     <Typography>{game.priceIncludingDiscount} $</Typography>
                 </CardContent>
