@@ -18,7 +18,7 @@ export type Game = BaseEntity & {
   description: string;
   releaseDate: Date;
   price: number;
-  priceIncludingDiscount: number;
+  discount: number;
   coverPath: string;
   rating: Rating | undefined;
   comments: Comment[] | undefined;

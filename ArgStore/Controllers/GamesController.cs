@@ -62,7 +62,7 @@ namespace ArgStore.Controllers
             gameFromDB.Name = game.Name;
             gameFromDB.Genres = game.Genres;
             gameFromDB.Price = game.Price;
-            gameFromDB.PriceIncludingDiscount = game.PriceIncludingDiscount;
+            gameFromDB.Discount = game.Discount;
             gameFromDB.Rating = game.Rating;
             gameFromDB.ReleaseDate = game.ReleaseDate;
             gameFromDB.Description = game.Description;

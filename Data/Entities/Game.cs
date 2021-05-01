@@ -10,7 +10,7 @@ namespace Data.Entities
         public string Description { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int Price { get; set; }
-        public int PriceIncludingDiscount { get; set; }
+        public int Discount { get; set; }
         public string CoverPath { get; set; } 
         public Rating Rating { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

@@ -34,7 +34,7 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
                 <CardContent>
                     <img className={classes.cover} src={game.coverPath} />
                     <Typography className={classes.title}>{game.name}</Typography>
-                    <Typography>{game.priceIncludingDiscount} $</Typography>
+                    <Typography>{game.discount} $</Typography>
                 </CardContent>
             </CardActionArea>
         </Card>

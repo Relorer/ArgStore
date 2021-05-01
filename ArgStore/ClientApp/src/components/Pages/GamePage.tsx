@@ -2,7 +2,12 @@ import {
     Box,
     Button,
     createStyles,
+    FormControl,
     Grid,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
     makeStyles,
     Theme,
     Typography,
@@ -14,6 +19,9 @@ import { Game } from "../../models/ApiModel";
 import { useParams } from "react-router";
 import TextField from "@material-ui/core/TextField";
 import { Rating } from "@material-ui/lab";
+import CloseIcon from "@material-ui/icons/Close";
+import SettingsIcon from "@material-ui/icons/Settings";
+import CheckIcon from "@material-ui/icons/Check";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -66,10 +74,10 @@ const GamePage = observer(() => {
         selectedGame(games, id).description
     );
     const [price, setPrice] = useState(selectedGame(games, id).price);
-    const [priceIncludingDiscount, setPriceIncludingDiscount] = useState(
-        selectedGame(games, id).priceIncludingDiscount
-    );
+    const [discount, setDiscount] = useState(selectedGame(games, id).discount);
     const [coverPath, setCoverPath] = useState(selectedGame(games, id).coverPath);
+
+    const [changes, setChanges] = useState(true);
 
     useEffect(() => {
         refreshGames();
@@ -79,15 +87,87 @@ const GamePage = observer(() => {
         setName(selectedGame(games, id).name);
         setDescription(selectedGame(games, id).description);
         setPrice(selectedGame(games, id).price);
-        setPriceIncludingDiscount(selectedGame(games, id).priceIncludingDiscount);
+        setDiscount(selectedGame(games, id).discount);
         setCoverPath(selectedGame(games, id).coverPath);
     }, [games]);
+
+    if (changes) {
+        return (
+            <Grid container className={classes.root} spacing={3}>
+                <Grid xs={3} item>
+                    <img className={classes.cover} src={coverPath}></img>
+                    <FormControl fullWidth className={classes.textField}>
+                        <InputLabel>Цена</InputLabel>
+                        <Input
+                            value={price}
+                            onChange={() => {}}
+                            startAdornment={
+                                <InputAdornment position="start">$</InputAdornment>
+                            }
+                        />
+                    </FormControl>
+                    <FormControl fullWidth className={classes.textField}>
+                        <InputLabel>Скидка</InputLabel>
+                        <Input
+                            value={discount}
+                            onChange={() => {}}
+                            startAdornment={
+                                <InputAdornment position="start">%</InputAdornment>
+                            }
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid xs={8} item>
+                    <Grid container>
+                        <Grid item xs={11}>
+                            <TextField
+                                value={name}
+                                className={classes.textField}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                onChange={(v): void => {}}
+                            />
+                        </Grid>
+                        <Grid item container xs={1} alignContent="center">
+                            <Grid item xs={6}>
+                                <IconButton onClick={() => setChanges(false)}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <IconButton color="primary" onClick={() => setChanges(false)}>
+                                    <CheckIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Rating
+                        name="simple-controlled"
+                        value={1}
+                        size="large"
+                        onChange={(event, newValue) => {
+                            // setValue(newValue);
+                        }}
+                    />
+                    <h3>Описание</h3>
+                    <TextField
+                        fullWidth
+                        multiline
+                        variant="outlined"
+                        value={description}
+                        onChange={() => {}}
+                    />
+                </Grid>
+            </Grid>
+        );
+    }
 
     return (
         <Grid container className={classes.root} spacing={3}>
             <Grid xs={3} item>
                 <img className={classes.cover} src={coverPath}></img>
-                <h3>${priceIncludingDiscount}</h3>
+                <h3>${price}</h3>
                 <Button className={classes.button} variant="contained" color="primary">
           В корзину
                 </Button>
@@ -96,7 +176,18 @@ const GamePage = observer(() => {
                 </Button>
             </Grid>
             <Grid xs={8} item>
-                <h2>{name}</h2>
+                <Grid container>
+                    <Grid item xs={11}>
+                        <h2>{name}</h2>
+                    </Grid>
+                    <Grid item container xs={1} alignContent="center">
+                        <Grid item>
+                            <IconButton onClick={() => setChanges(true)}>
+                                <SettingsIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                </Grid>
                 <Rating
                     name="simple-controlled"
                     value={1}
@@ -113,83 +204,3 @@ const GamePage = observer(() => {
 });
 
 export default GamePage;
-
-{
-    /* <TextField
-                label="Name"
-                className={classes.textField}
-                value={name}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={(v): void => setName(v.target.value)}
-            />
-            <TextField
-                label="Description"
-                value={description}
-                className={classes.textField}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={(v): void => setDescription(v.target.value)}
-            />
-            <TextField
-                label="Price"
-                type="number"
-                className={classes.textField}
-                value={price}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={(v): void => {
-                    if (typeof v.target.value === "number") setPrice(v.target.value);
-                }}
-            />
-            <TextField
-                label="Price Including Discount"
-                type="number"
-                className={classes.textField}
-                value={priceIncludingDiscount}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={(v): void => {
-                    if (typeof v.target.value === "number")
-                        setPriceIncludingDiscount(v.target.value);
-                }}
-            />
-            <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                onClick={(): void => {
-                    remove(selectedGame(games, id));
-                    document.location.replace("/");
-                }}
-            >
-        Delete
-            </Button>
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={(): void => {
-                    const game = selectedGame(games, id);
-                    const _game: Game = {
-                        id: game.id,
-                        name: name,
-                        description: description,
-                        price: price,
-                        priceIncludingDiscount: priceIncludingDiscount,
-                        coverPath: coverPath,
-                        releaseDate: game.releaseDate,
-                        rating: undefined,
-                        comments: undefined,
-                        genres: undefined,
-                    };
-                    update(_game);
-                }}
-            >
-        Save
-            </Button> */
-}
