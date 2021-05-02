@@ -1,7 +1,9 @@
 ﻿using ArgStore.Models;
+using BLL;
 using Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +11,21 @@ using System.Threading.Tasks;
 
 namespace ArgStore.Controllers
 {
+    [ApiController]
     [Produces("application/json")]
     public class AuthController : Controller
     {
+        private readonly ILogger<GamesController> logger;
+        private readonly IUnitOfWork baseContext;
+
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<GamesController> logger, IUnitOfWork baseContext)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.logger = logger;
+            this.baseContext = baseContext;
         }
 
         [HttpPost]
@@ -119,13 +127,55 @@ namespace ArgStore.Controllers
         {
             User user = await GetCurrentUserAsync();
             bool isAuth = user != null;
-            string role = isAuth ? (await userManager.GetRolesAsync(user)).FirstOrDefault() : "";
+            string role = isAuth ? (await userManager.GetRolesAsync(user)).FirstOrDefault() : "noauth";
 
             var msg = new { isAuth, user, role };
             return Ok(msg);
         }
 
-        private Task<User> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+        [HttpPost]
+        [Route("api/basket/add")]
+        public async Task<ActionResult<User>> AddGameToBasket(Game game)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                user.Basket.BasketGames.Add(new BasketGame() { Game = game });
+                baseContext.Basket.UpdateItem(user.Basket);
+                baseContext.Save();
+
+                return user;
+            }
+            else
+            {
+                var errorMsg = new
+                {
+                    message = "Вход не выполнен.",
+                };
+                return BadRequest(errorMsg);
+            }
+        }
+
+        private async Task<User> GetCurrentUserAsync()
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+
+            if (user != null)
+            {
+                var baskets = await baseContext.Basket.GetItems();
+                var basket = baskets.FirstOrDefault(b => b.User.Id == user.Id) ?? new Basket();
+
+                basket.BasketGames = basket.BasketGames ?? new List<BasketGame>();
+            }
+
+            return user;
+        }
 
     }
 }

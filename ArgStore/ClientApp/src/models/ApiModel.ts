@@ -3,8 +3,12 @@ export type BaseEntity = {
 };
 
 export type Basket = BaseEntity & {
-  games: Game[];
+  basketGames: BasketGame[];
   user: User;
+};
+
+export type BasketGame = BaseEntity & {
+  game: Game;
 };
 
 export type Comment = BaseEntity & {
@@ -63,13 +67,13 @@ export type User = BaseEntity & {
   comments: Comment[];
 };
 
-export type RegisterForm = {
+export type SignupForm = {
   login: string;
   password: string;
   passwordConfirm: string;
 };
 
-export type LoginForm = {
+export type SigninForm = {
   login: string;
   password: string;
   rememberMe: boolean;
@@ -77,7 +81,7 @@ export type LoginForm = {
 
 export type AuthInfo = {
   isAuth: boolean;
-  user: User;
+  user: User | null;
   role: Role;
 };
 

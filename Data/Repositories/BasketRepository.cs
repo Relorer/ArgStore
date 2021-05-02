@@ -19,20 +19,20 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(int studentID)
+        public void DeleteItem(string studentID)
         {
             Basket basket = context.Basket.Find(studentID);
             context.Basket.Remove(basket);
         }
 
-        public async Task<Basket> GetItemByID(int id)
+        public async Task<Basket> GetItemByID(string id)
         {
             return await context.Basket.FindAsync(id);
         }
 
         public async Task<IEnumerable<Basket>> GetItems()
         {
-            return await context.Basket.ToListAsync();
+            return await context.Basket.Include(b => b.User).Include(b => b.BasketGames).ToListAsync();
         }
 
         public async Task<Basket> InsertItem(Basket basket)

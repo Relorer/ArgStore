@@ -19,13 +19,13 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(int studentID)
+        public void DeleteItem(string studentID)
         {
             Comment comment = context.Comment.Find(studentID);
             context.Comment.Remove(comment);
         }
 
-        public async Task<Comment> GetItemByID(int id)
+        public async Task<Comment> GetItemByID(string id)
         {
             return await context.Comment.FindAsync(id);
         }

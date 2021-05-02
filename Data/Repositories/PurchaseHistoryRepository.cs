@@ -19,13 +19,13 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(int studentID)
+        public void DeleteItem(string studentID)
         {
             PurchaseHistory purchaseHistory = context.PurchaseHistory.Find(studentID);
             context.PurchaseHistory.Remove(purchaseHistory);
         }
 
-        public async Task<PurchaseHistory> GetItemByID(int id)
+        public async Task<PurchaseHistory> GetItemByID(string id)
         {
             return await context.PurchaseHistory.FindAsync(id);
         }

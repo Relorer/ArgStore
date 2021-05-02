@@ -6,6 +6,14 @@ namespace Data.Entities
 {
     public class Game : BaseEntity
     {
+        public Game()
+        {
+            this.Comments = new HashSet<Comment>();
+            this.BasketGames = new HashSet<BasketGame>();
+            this.Baskets = new HashSet<Basket>();
+            this.Genres = new HashSet<Genre>();
+        }
+
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime ReleaseDate { get; set; }
@@ -14,6 +22,8 @@ namespace Data.Entities
         public string CoverPath { get; set; } 
         public Rating Rating { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
-        public ICollection<Genre> Genres { get; set; }
+        public virtual ICollection<BasketGame> BasketGames { get; set; }
+        public virtual ICollection<Basket> Baskets { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
     }
 }

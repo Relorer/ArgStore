@@ -1,27 +1,27 @@
-import { AuthInfo, LoginForm, RegisterForm } from "../models/ApiModel";
+import { AuthInfo, SigninForm as SigninForm, SignupForm } from "../models/ApiModel";
 import checkResponse from "./CheckResponse";
 
 const API_URL = "/api/";
 
-export const signup = async (register: RegisterForm) => {
+export const signup = async (signupForm: SignupForm) => {
     const response = await fetch(API_URL + "signup", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(register),
+        body: JSON.stringify(signupForm),
     });
     await checkResponse(response, "signup");
     return response;
 };
 
-export const signin = async (register: LoginForm) => {
+export const signin = async (signinForm: SigninForm) => {
     const response = await fetch(API_URL + "signin", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(register),
+        body: JSON.stringify(signinForm),
     });
     await checkResponse(response, "signin");
     return response;

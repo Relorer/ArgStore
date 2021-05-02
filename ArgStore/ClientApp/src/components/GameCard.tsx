@@ -8,18 +8,18 @@ import { observer } from "mobx-react";
 import { Game } from "../models/ApiModel";
 
 const useStyles = makeStyles({
-    root: {
-        width: 240,
-        height: "100%",
-        boxShadow: "none",
-        background: "transparent",
-    },
-    title: {
-        fontSize: 16,
-    },
-    cover: {
-        width: "100%",
-    },
+  root: {
+    width: 240,
+    height: "100%",
+    boxShadow: "none",
+    background: "transparent",
+  },
+  title: {
+    fontSize: 16,
+  },
+  cover: {
+    width: "100%",
+  },
 });
 
 type GameCardProps = {
@@ -27,18 +27,18 @@ type GameCardProps = {
 };
 
 const GameCard: FC<GameCardProps> = ({ game }) => {
-    const classes = useStyles();
-    return (
-        <Card className={classes.root}>
-            <CardActionArea href={game.id}>
-                <CardContent>
-                    <img className={classes.cover} src={game.coverPath} />
-                    <Typography className={classes.title}>{game.name}</Typography>
-                    <Typography>{game.discount} $</Typography>
-                </CardContent>
-            </CardActionArea>
-        </Card>
-    );
+  const classes = useStyles();
+  return (
+    <Card className={classes.root}>
+      <CardActionArea href={game.id}>
+        <CardContent>
+          <img className={classes.cover} src={game.coverPath} />
+          <Typography className={classes.title}>{game.name}</Typography>
+          <Typography>{game.discount} $</Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
 };
 
 export default GameCard;

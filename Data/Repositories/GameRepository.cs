@@ -17,13 +17,13 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(int studentID)
+        public void DeleteItem(string studentID)
         {
             Game game = context.Game.Find(studentID);
             context.Game.Remove(game);
         }
 
-        public async Task<Game> GetItemByID(int id)
+        public async Task<Game> GetItemByID(string id)
         {
             return await context.Game.FindAsync(id);
         }

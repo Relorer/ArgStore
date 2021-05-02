@@ -6,6 +6,11 @@ namespace Data.Entities
 {
     public class Rating : BaseEntity 
     {
-        public ICollection<Mark> Marks { get; set; }
+        public Rating()
+        {
+            this.Marks = new HashSet<Mark>();
+        }
+
+        public virtual ICollection<Mark> Marks { get; set; }
     }
 }

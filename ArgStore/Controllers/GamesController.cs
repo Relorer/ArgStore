@@ -31,7 +31,7 @@ namespace ArgStore.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> GetById(int id)
+        public async Task<ActionResult<Game>> GetById(string id)
         {
             var game = await baseContext.Game.GetItemByID(id);
 
@@ -45,7 +45,7 @@ namespace ArgStore.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Game game)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Game game)
         {
             if (!ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace ArgStore.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Game>> Create(Game game)
         {
@@ -92,7 +92,7 @@ namespace ArgStore.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteClient(int id)
+        public async Task<ActionResult> DeleteClient(string id)
         {
             var game = await baseContext.Game.GetItemByID(id);
 

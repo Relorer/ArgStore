@@ -6,7 +6,12 @@ namespace Data.Entities
 {
     public class PurchaseHistory : BaseEntity
     {
-        public ICollection<PurchasedGame> PurchasedGame { get; set; }
+        public PurchaseHistory()
+        {
+            this.PurchasedGame = new HashSet<PurchasedGame>();
+        }
+
+        public virtual ICollection<PurchasedGame> PurchasedGame { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -30,7 +30,7 @@ export class GamesService {
               name: "Nameless",
               description: "",
               price: 0,
-              priceIncludingDiscount: 0,
+              discount: 0,
               coverPath: "",
               releaseDate: new Date(),
               rating: undefined,

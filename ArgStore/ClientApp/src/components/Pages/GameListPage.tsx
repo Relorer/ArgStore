@@ -10,76 +10,76 @@ import { Card, CardActionArea, CardContent } from "@material-ui/core";
 import { getAuthInfo } from "../../api/Auth";
 
 const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            flexGrow: 1,
-            margin: 10,
-        },
-        control: {
-            padding: theme.spacing(2),
-        },
-        pagination: {
-            margin: "auto",
-        },
-        divider: {
-            width: "70%",
-            margin: "20px auto",
-        },
-        cover: {
-            width: "100px",
-        },
-    })
+  createStyles({
+    root: {
+      flexGrow: 1,
+      margin: 10,
+    },
+    control: {
+      padding: theme.spacing(2),
+    },
+    pagination: {
+      margin: "auto",
+    },
+    divider: {
+      width: "70%",
+      margin: "20px auto",
+    },
+    cover: {
+      width: "100px",
+    },
+  })
 );
 
 const GameListPage = observer(() => {
-    const classes = useStyles();
-    const [isAuth, setIsAuth] = useState(false);
-    const [role, setRole] = useState<Role>("noauth");
+  const classes = useStyles();
+  const [isAuth, setIsAuth] = useState(false);
+  const [role, setRole] = useState<Role>("noauth");
 
-    const checkAuth = async (): Promise<void> => {
-        const res = await getAuthInfo();
-        setIsAuth(res.isAuth);
-        if (res.isAuth) setRole(res.role);
-    };
-    checkAuth();
+  const checkAuth = async (): Promise<void> => {
+    const res = await getAuthInfo();
+    setIsAuth(res.isAuth);
+    if (res.isAuth) setRole(res.role);
+  };
+  checkAuth();
 
-    const gamesService = useContext(GamesServiceContext);
-    if (!gamesService) {
-        return <p className="center">GamesServiceContext is missing</p>;
-    }
-    const { games, refreshGames, create } = gamesService;
+  const gamesService = useContext(GamesServiceContext);
+  if (!gamesService) {
+    return <p className="center">GamesServiceContext is missing</p>;
+  }
+  const { games, refreshGames, create } = gamesService;
 
-    useEffect(() => {
-        refreshGames();
-    }, []);
+  useEffect(() => {
+    refreshGames();
+  }, []);
 
-    const selectedGame = (id: string): Game => {
-        const result = games.find((element) => element.id === id);
-        if (result) return result;
-        throw "id is not found";
-    };
+  const selectedGame = (id: string): Game => {
+    const result = games.find((element) => element.id === id);
+    if (result) return result;
+    throw "id is not found";
+  };
 
-    return (
-        <Grid container justify="center" className={classes.root}>
-            <Grid item>
-                <Grid container spacing={1}>
-                    {games.map((value: Game) => (
-                        <Grid key={value.id} item>
-                            <GameCard game={selectedGame(value.id || "")} />
-                        </Grid>
-                    ))}
-                </Grid>
+  return (
+    <Grid container justify="center" className={classes.root}>
+      <Grid item>
+        <Grid container spacing={1}>
+          {games.map((value: Game) => (
+            <Grid key={value.id} item>
+              <GameCard game={selectedGame(value.id || "")} />
             </Grid>
-            <Divider className={classes.divider} />
-            {/* <Pagination
+          ))}
+        </Grid>
+      </Grid>
+      <Divider className={classes.divider} />
+      {/* <Pagination
         color="primary"
         className={classes.pagination}
         count={10}
         showFirstButton
         showLastButton
       /> */}
-        </Grid>
-    );
+    </Grid>
+  );
 });
 
 export default GameListPage;
