@@ -85,4 +85,4 @@ export type AuthInfo = {
   role: Role;
 };
 
-export type Role = "admin" | "user" | "noauth";
+export type Role = "admin" | "user" | "noauth" | "noload";

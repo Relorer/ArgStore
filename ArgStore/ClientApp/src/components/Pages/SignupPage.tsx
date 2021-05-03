@@ -49,7 +49,7 @@ const SignupPage = observer(() => {
         password: password,
         passwordConfirm: passwordConfirm,
       });
-      window.history.back();
+      if (window.location.pathname === "/signup") window.history.back();
     } catch (e) {
       if (notify) notify(e.message, "error");
       else console.log(e);

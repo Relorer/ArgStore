@@ -146,7 +146,36 @@ namespace ArgStore.Controllers
 
             if (user != null)
             {
-                user.Basket.BasketGames.Add(new BasketGame() { Game = game });
+                user.Basket.BasketGames.Add(new BasketGame() { Game = await baseContext.Game.GetItemByID(game.Id) });
+                baseContext.Basket.UpdateItem(user.Basket);
+                baseContext.Save();
+
+                return user;
+            }
+            else
+            {
+                var errorMsg = new
+                {
+                    message = "Вход не выполнен.",
+                };
+                return BadRequest(errorMsg);
+            }
+        }
+
+        [HttpDelete("api/basket/{id}")]
+        public async Task<ActionResult<User>> DeleteGameToBasket(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                var temp = user.Basket.BasketGames.FirstOrDefault(bg => bg.Game.Id == id);
+                if (temp != null) user.Basket.BasketGames.Remove(temp);
                 baseContext.Basket.UpdateItem(user.Basket);
                 baseContext.Save();
 

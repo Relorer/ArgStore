@@ -51,7 +51,8 @@ const LoginPage = observer(() => {
         password: password,
         rememberMe: rememberMe,
       });
-      window.history.back();
+      console.log();
+      if (window.location.pathname === "/signin") window.history.back();
     } catch (e) {
       if (notify) notify(e.message, "error");
       else console.log(e);

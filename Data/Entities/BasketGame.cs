@@ -6,6 +6,6 @@ namespace Data.Entities
 {
     public class BasketGame : BaseEntity
     {
-        public Game Game { get; set; }
+        public virtual Game Game { get; set; }
     }
 }

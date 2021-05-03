@@ -186,7 +186,7 @@ const GamePage = observer(() => {
             >
               В корзину
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" href="/purchase">
               Купить
             </Button>
           </>

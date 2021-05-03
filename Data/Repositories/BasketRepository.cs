@@ -32,7 +32,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Basket>> GetItems()
         {
-            return await context.Basket.Include(b => b.User).Include(b => b.BasketGames).ToListAsync();
+            return await context.Basket.Include(b => b.User).Include(b => b.BasketGames).ThenInclude(b => b.Game).ToListAsync();
         }
 
         public async Task<Basket> InsertItem(Basket basket)

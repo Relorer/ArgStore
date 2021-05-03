@@ -14,3 +14,12 @@ export const addGameToBasket = async (game: Game): Promise<User> => {
     await checkResponse(response, "addGameToBasket");
     return (await response.json()) as User;
 };
+
+export const deleteGameToBasket = async (id: string): Promise<User> => {
+    const gameApiUrl = `${API_URL}/${id}`;
+    const response = await fetch(gameApiUrl, {
+        method: "DELETE",
+    });
+    await checkResponse(response, "deleteGameToBasket");
+    return (await response.json()) as User;
+};

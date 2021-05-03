@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import { getAuthInfo, signin, signout, signup } from "../api/Auth";
-import { addGameToBasket } from "../api/BasketApi";
+import { addGameToBasket, deleteGameToBasket } from "../api/BasketApi";
 import { AuthInfo, Game, SigninForm, SignupForm, User } from "../models/ApiModel";
 import { Notify } from "./SnackBarProvider";
 
@@ -9,7 +9,7 @@ export class UserService {
   public AuthInfo: AuthInfo = {
     isAuth: false,
     user: null,
-    role: "noauth",
+    role: "noload",
   }
 
   public notify: Notify;
@@ -25,6 +25,7 @@ export class UserService {
         signout: action.bound,
         signup: action.bound,
         addGameToBasket: action.bound,
+        deleteGameToBasket: action.bound,
       });
       this.getAuthInfo();
   }
@@ -59,6 +60,14 @@ export class UserService {
   public async addGameToBasket(game: Game): Promise<void> {
     try {
         this.AuthInfo.user = await addGameToBasket(game);
+    } catch (e) {
+        this.notify(e.message, "error");
+    }
+}
+
+public async deleteGameToBasket(id: string): Promise<void> {
+    try {
+        this.AuthInfo.user = await deleteGameToBasket(id);
     } catch (e) {
         this.notify(e.message, "error");
     }
