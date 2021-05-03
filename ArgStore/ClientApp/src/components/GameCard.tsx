@@ -9,24 +9,24 @@ import { Game } from "../models/ApiModel";
 import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  root: {
-    width: 240,
-    height: "100%",
-    boxShadow: "none",
-    background: "transparent",
-  },
-  fullHeight: {
-    height: "100%",
-  },
-  cardContentContainer: {},
-  title: {
-    fontSize: 16,
-  },
-  cover: {
-    width: "100%",
-    height: "280px",
-    objectFit: "cover",
-  },
+    root: {
+        width: 240,
+        height: "100%",
+        boxShadow: "none",
+        background: "transparent",
+    },
+    fullHeight: {
+        height: "100%",
+    },
+    cardContentContainer: {},
+    title: {
+        fontSize: 16,
+    },
+    cover: {
+        width: "100%",
+        height: "280px",
+        objectFit: "cover",
+    },
 });
 
 type GameCardProps = {
@@ -34,28 +34,28 @@ type GameCardProps = {
 };
 
 const GameCard: FC<GameCardProps> = ({ game }) => {
-  const classes = useStyles();
-  return (
-    <Card className={classes.root}>
-      <CardActionArea href={game.id} className={classes.fullHeight}>
-        <CardContent className={classes.fullHeight}>
-          <Grid
-            container
-            className={[classes.fullHeight, classes.cardContentContainer]}
-          >
-            <Grid item xs={12}>
-              <img
-                className={classes.cover}
-                src={game.cover !== "" ? game.cover : "/images/notfound.png"}
-              />
-              <Typography className={classes.title}>{game.name}</Typography>
-              <Typography>${game.price}</Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
+    const classes = useStyles();
+    return (
+        <Card className={classes.root}>
+            <CardActionArea href={game.id} className={classes.fullHeight}>
+                <CardContent className={classes.fullHeight}>
+                    <Grid
+                        container
+                        className={[classes.fullHeight, classes.cardContentContainer]}
+                    >
+                        <Grid item xs={12}>
+                            <img
+                                className={classes.cover}
+                                src={game.cover !== "" ? game.cover : "/images/notfound.png"}
+                            />
+                            <Typography className={classes.title}>{game.name}</Typography>
+                            <Typography>${game.price}</Typography>
+                        </Grid>
+                    </Grid>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    );
 };
 
 export default GameCard;

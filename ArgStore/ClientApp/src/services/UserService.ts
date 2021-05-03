@@ -1,16 +1,22 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import { getAuthInfo, signin, signout, signup } from "../api/Auth";
 import { addGameToBasket, deleteGameToBasket } from "../api/BasketApi";
-import { AuthInfo, Game, SigninForm, SignupForm, User } from "../models/ApiModel";
+import {
+    AuthInfo,
+    Game,
+    SigninForm,
+    SignupForm,
+    User,
+} from "../models/ApiModel";
 import { Notify } from "./SnackBarProvider";
 
 export class UserService {
   @observable
   public AuthInfo: AuthInfo = {
-    isAuth: false,
-    user: null,
-    role: "noload",
-  }
+      isAuth: false,
+      user: null,
+      role: "noload",
+  };
 
   public notify: Notify;
   constructor(
@@ -20,12 +26,12 @@ export class UserService {
   ) {
       this.notify = notify;
       makeObservable(this, {
-        AuthInfo: observable,
-        signin: action.bound,
-        signout: action.bound,
-        signup: action.bound,
-        addGameToBasket: action.bound,
-        deleteGameToBasket: action.bound,
+          AuthInfo: observable,
+          signin: action.bound,
+          signout: action.bound,
+          signup: action.bound,
+          addGameToBasket: action.bound,
+          deleteGameToBasket: action.bound,
       });
       this.getAuthInfo();
   }
@@ -50,34 +56,34 @@ export class UserService {
 
   public async signup(signupForm: SignupForm): Promise<void> {
       try {
-            await signup(signupForm);
-            await this.getAuthInfo();
+          await signup(signupForm);
+          await this.getAuthInfo();
       } catch (e) {
           this.notify(e.message, "error");
       }
   }
 
   public async addGameToBasket(game: Game): Promise<void> {
-    try {
-        this.AuthInfo.user = await addGameToBasket(game);
-    } catch (e) {
-        this.notify(e.message, "error");
-    }
-}
+      try {
+          this.AuthInfo.user = await addGameToBasket(game);
+      } catch (e) {
+          this.notify(e.message, "error");
+      }
+  }
 
-public async deleteGameToBasket(id: string): Promise<void> {
-    try {
-        this.AuthInfo.user = await deleteGameToBasket(id);
-    } catch (e) {
-        this.notify(e.message, "error");
-    }
-}
+  public async deleteGameToBasket(id: string): Promise<void> {
+      try {
+          this.AuthInfo.user = await deleteGameToBasket(id);
+      } catch (e) {
+          this.notify(e.message, "error");
+      }
+  }
 
   private async getAuthInfo(): Promise<void> {
-    try {
-         this.AuthInfo = await getAuthInfo();
-    } catch (e) {
-        this.notify(e.message, "error");
-    }
-}
+      try {
+          this.AuthInfo = await getAuthInfo();
+      } catch (e) {
+          this.notify(e.message, "error");
+      }
+  }
 }

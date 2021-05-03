@@ -15,40 +15,40 @@ import { UserServiceContext } from "./services/UserServiceProvider";
 import { observer } from "mobx-react";
 
 const App = observer(() => {
-  const { AuthInfo } = useContext(UserServiceContext) as UserService;
+    const { AuthInfo } = useContext(UserServiceContext) as UserService;
 
-  return (
-    <>
-      <div className={"mainContainer"}>
-        <SearchAppBar></SearchAppBar>
-        <Container>
-          {AuthInfo.role === "noload" ? (
-            <></>
-          ) : AuthInfo.isAuth ? (
-            <Switch>
-              <Route exact path="/" component={GameListPage} />
-              <Route exact path="/purchase" component={PurchasePage} />
-              <Route exact path="/signup" component={GameListPage} />
-              <Route exact path="/signin" component={GameListPage} />
-              <Route exact path="/basket" component={BasketPage} />
-              <Route exact path="/:id" component={GamePage} />
-            </Switch>
-          ) : (
-            <Switch>
-              <Route exact path="/" component={GameListPage} />
-              <Route exact path="/purchase" component={LoginPage} />
-              <Route exact path="/signup" component={SignupPage} />
-              <Route exact path="/signin" component={LoginPage} />
-              <Route exact path="/basket" component={LoginPage} />
-              <Route exact path="/:id" component={GamePage} />
-            </Switch>
-          )}
-        </Container>
-        <div className={"footerSpace"} />
-      </div>
-      <Footer></Footer>
-    </>
-  );
+    return (
+        <>
+            <div className={"mainContainer"}>
+                <SearchAppBar></SearchAppBar>
+                <Container>
+                    {AuthInfo.role === "noload" ? (
+                        <></>
+                    ) : AuthInfo.isAuth ? (
+                        <Switch>
+                            <Route exact path="/" component={GameListPage} />
+                            <Route exact path="/purchase" component={PurchasePage} />
+                            <Route exact path="/signup" component={GameListPage} />
+                            <Route exact path="/signin" component={GameListPage} />
+                            <Route exact path="/basket" component={BasketPage} />
+                            <Route exact path="/:id" component={GamePage} />
+                        </Switch>
+                    ) : (
+                        <Switch>
+                            <Route exact path="/" component={GameListPage} />
+                            <Route exact path="/purchase" component={LoginPage} />
+                            <Route exact path="/signup" component={SignupPage} />
+                            <Route exact path="/signin" component={LoginPage} />
+                            <Route exact path="/basket" component={LoginPage} />
+                            <Route exact path="/:id" component={GamePage} />
+                        </Switch>
+                    )}
+                </Container>
+                <div className={"footerSpace"} />
+            </div>
+            <Footer></Footer>
+        </>
+    );
 });
 
 export default App;

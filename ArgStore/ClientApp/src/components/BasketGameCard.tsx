@@ -12,15 +12,15 @@ import { UserService } from "../services/UserService";
 import { UserServiceContext } from "../services/UserServiceProvider";
 
 const useStyles = makeStyles({
-  root: {
-    width: "100%",
-    height: "100%",
-    boxShadow: "none",
-    background: "transparent",
-  },
-  cover: {
-    width: "100%",
-  },
+    root: {
+        width: "100%",
+        height: "100%",
+        boxShadow: "none",
+        background: "transparent",
+    },
+    cover: {
+        width: "100%",
+    },
 });
 
 type BasketGameCardProps = {
@@ -28,44 +28,44 @@ type BasketGameCardProps = {
 };
 
 const BasketGameCard: FC<BasketGameCardProps> = observer(({ game }) => {
-  const classes = useStyles();
-  const { deleteGameToBasket } = useContext(UserServiceContext) as UserService;
+    const classes = useStyles();
+    const { deleteGameToBasket } = useContext(UserServiceContext) as UserService;
 
-  return (
-    <Card className={classes.root}>
-      <CardActionArea
-        onClick={() => {
-          document.location.href = "/" + game.id;
-        }}
-      >
-        <CardContent>
-          <Grid container spacing={3}>
-            <Grid item xs={1}>
-              <img className={classes.cover} src={game.cover} />
-            </Grid>
-            <Grid item xs={10}>
-              <Typography variant="h5" component="h5">
-                {game.name}
-              </Typography>
-              <Typography>${game.discount}</Typography>
-            </Grid>
-            <Grid item container xs={1} justify="center" alignItems="center">
-              <Grid item>
-                <IconButton
-                  onClick={(e) => {
-                    deleteGameToBasket(game.id || "");
-                    e.stopPropagation();
-                  }}
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
+    return (
+        <Card className={classes.root}>
+            <CardActionArea
+                onClick={() => {
+                    document.location.href = "/" + game.id;
+                }}
+            >
+                <CardContent>
+                    <Grid container spacing={3}>
+                        <Grid item xs={1}>
+                            <img className={classes.cover} src={game.cover} />
+                        </Grid>
+                        <Grid item xs={10}>
+                            <Typography variant="h5" component="h5">
+                                {game.name}
+                            </Typography>
+                            <Typography>${game.discount}</Typography>
+                        </Grid>
+                        <Grid item container xs={1} justify="center" alignItems="center">
+                            <Grid item>
+                                <IconButton
+                                    onClick={(e) => {
+                                        deleteGameToBasket(game.id || "");
+                                        e.stopPropagation();
+                                    }}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    );
 });
 
 export default BasketGameCard;

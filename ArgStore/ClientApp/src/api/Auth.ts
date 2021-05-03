@@ -1,4 +1,8 @@
-import { AuthInfo, SigninForm as SigninForm, SignupForm } from "../models/ApiModel";
+import {
+    AuthInfo,
+    SigninForm as SigninForm,
+    SignupForm,
+} from "../models/ApiModel";
 import checkResponse from "./CheckResponse";
 
 const API_URL = "/api/";
