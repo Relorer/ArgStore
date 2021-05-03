@@ -22,7 +22,8 @@ namespace Data.Repositories
         public void DeleteItem(string studentID)
         {
             PurchaseHistory purchaseHistory = context.PurchaseHistory.Find(studentID);
-            context.PurchaseHistory.Remove(purchaseHistory);
+            purchaseHistory.IsDeleted = true;
+            UpdateItem(purchaseHistory);
         }
 
         public async Task<PurchaseHistory> GetItemByID(string id)
@@ -32,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<PurchaseHistory>> GetItems()
         {
-            return await context.PurchaseHistory.ToListAsync();
+            return await context.PurchaseHistory.Where(a => !a.IsDeleted).ToListAsync();
         }
 
         public async Task<PurchaseHistory> InsertItem(PurchaseHistory purchaseHistory)

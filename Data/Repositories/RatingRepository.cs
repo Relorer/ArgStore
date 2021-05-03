@@ -22,7 +22,8 @@ namespace Data.Repositories
         public void DeleteItem(string studentID)
         {
             Rating rating = context.Rating.Find(studentID);
-            context.Rating.Remove(rating);
+            rating.IsDeleted = true;
+            UpdateItem(rating);
         }
 
         public async Task<Rating> GetItemByID(string id)
@@ -32,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Rating>> GetItems()
         {
-            return await context.Rating.ToListAsync();
+            return await context.Rating.Where(a => !a.IsDeleted).ToListAsync();
         }
 
         public async Task<Rating> InsertItem(Rating rating)

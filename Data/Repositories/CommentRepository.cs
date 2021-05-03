@@ -22,7 +22,8 @@ namespace Data.Repositories
         public void DeleteItem(string studentID)
         {
             Comment comment = context.Comment.Find(studentID);
-            context.Comment.Remove(comment);
+            comment.IsDeleted = true;
+            UpdateItem(comment);
         }
 
         public async Task<Comment> GetItemByID(string id)
@@ -32,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Comment>> GetItems()
         {
-            return await context.Comment.ToListAsync();
+            return await context.Comment.Where(a => !a.IsDeleted).ToListAsync();
         }
 
         public async Task<Comment> InsertItem(Comment comment)

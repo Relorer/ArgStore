@@ -6,6 +6,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Typography from "@material-ui/core/Typography";
 import { observer } from "mobx-react";
 import { Game } from "../models/ApiModel";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -14,11 +15,17 @@ const useStyles = makeStyles({
     boxShadow: "none",
     background: "transparent",
   },
+  fullHeight: {
+    height: "100%",
+  },
+  cardContentContainer: {},
   title: {
     fontSize: 16,
   },
   cover: {
     width: "100%",
+    height: "280px",
+    objectFit: "cover",
   },
 });
 
@@ -30,11 +37,25 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardActionArea href={game.id}>
-        <CardContent>
-          <img className={classes.cover} src={game.coverPath} />
-          <Typography className={classes.title}>{game.name}</Typography>
-          <Typography>${game.discount}</Typography>
+      <CardActionArea href={game.id} className={classes.fullHeight}>
+        <CardContent className={classes.fullHeight}>
+          <Grid
+            container
+            className={[classes.fullHeight, classes.cardContentContainer]}
+          >
+            <Grid item xs={12}>
+              <img
+                className={classes.cover}
+                src={
+                  game.coverPath !== ""
+                    ? game.coverPath
+                    : "/images/notfound.png"
+                }
+              />
+              <Typography className={classes.title}>{game.name}</Typography>
+              <Typography>${game.discount}</Typography>
+            </Grid>
+          </Grid>
         </CardContent>
       </CardActionArea>
     </Card>

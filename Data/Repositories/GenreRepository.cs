@@ -22,7 +22,8 @@ namespace Data.Repositories
         public void DeleteItem(string studentID)
         {
             Genre genre = context.Genre.Find(studentID);
-            context.Genre.Remove(genre);
+            genre.IsDeleted = true;
+            UpdateItem(genre);
         }
 
         public async Task<Genre> GetItemByID(string id)
@@ -32,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Genre>> GetItems()
         {
-            return await context.Genre.ToListAsync();
+            return await context.Genre.Where(a => !a.IsDeleted).ToListAsync();
         }
 
         public async Task<Genre> InsertItem(Genre genre)

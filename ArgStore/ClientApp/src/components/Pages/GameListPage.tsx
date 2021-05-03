@@ -6,8 +6,17 @@ import GameCard from "../GameCard";
 import { Game, Role } from "../../models/ApiModel";
 import { GamesServiceContext } from "../../services/GamesServiceProvider";
 import { observer } from "mobx-react";
-import { Card, CardActionArea, CardContent } from "@material-ui/core";
+import { GamesService } from "../../services/GamesService";
+import { UserService } from "../../services/UserService";
+import { UserServiceContext } from "../../services/UserServiceProvider";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  IconButton,
+} from "@material-ui/core";
 import { getAuthInfo } from "../../api/Auth";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,26 +37,24 @@ const useStyles = makeStyles((theme: Theme) =>
     cover: {
       width: "100px",
     },
+    addButton: {
+      position: "fixed",
+      right: "50px",
+      bottom: "150px",
+    },
   })
 );
 
 const GameListPage = observer(() => {
   const classes = useStyles();
-  const [isAuth, setIsAuth] = useState(false);
-  const [role, setRole] = useState<Role>("noauth");
 
-  const checkAuth = async (): Promise<void> => {
-    const res = await getAuthInfo();
-    setIsAuth(res.isAuth);
-    if (res.isAuth) setRole(res.role);
-  };
-  checkAuth();
+  const { games, update, create, refreshGames } = useContext(
+    GamesServiceContext
+  ) as GamesService;
 
-  const gamesService = useContext(GamesServiceContext);
-  if (!gamesService) {
-    return <p className="center">GamesServiceContext is missing</p>;
-  }
-  const { games, refreshGames, create } = gamesService;
+  const { AuthInfo, addGameToBasket } = useContext(
+    UserServiceContext
+  ) as UserService;
 
   useEffect(() => {
     refreshGames();
@@ -60,25 +67,38 @@ const GameListPage = observer(() => {
   };
 
   return (
-    <Grid container justify="center" className={classes.root}>
-      <Grid item>
-        <Grid container spacing={1}>
-          {games.map((value: Game) => (
-            <Grid key={value.id} item>
-              <GameCard game={selectedGame(value.id || "")} />
-            </Grid>
-          ))}
+    <>
+      <Grid container justify="center" className={classes.root}>
+        <Grid item>
+          <Grid container spacing={1}>
+            {games.map((value: Game) => (
+              <Grid key={value.id} item>
+                <GameCard game={selectedGame(value.id || "")} />
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
-      </Grid>
-      <Divider className={classes.divider} />
-      {/* <Pagination
+        <Grid item xs={12}>
+          <Divider className={classes.divider} />
+        </Grid>
+        {/* <Pagination
         color="primary"
         className={classes.pagination}
         count={10}
         showFirstButton
         showLastButton
       /> */}
-    </Grid>
+      </Grid>
+      {AuthInfo.role === "admin" ? (
+        <IconButton
+          color="primary"
+          className={classes.addButton}
+          onClick={() => create()}
+        >
+          <AddIcon />
+        </IconButton>
+      ) : null}
+    </>
   );
 });
 

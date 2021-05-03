@@ -24,6 +24,8 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import CheckIcon from "@material-ui/icons/Check";
 import { UserService } from "../../services/UserService";
 import { UserServiceContext } from "../../services/UserServiceProvider";
+import { GamesService } from "../../services/GamesService";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,21 +41,32 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
     },
     button: {
-      margin: "0 10px 0 0",
+      margin: "4px 10px 4px 0",
     },
   })
 );
 
 const GamePage = observer(() => {
   const classes = useStyles();
-
-  const gamesService = useContext(GamesServiceContext);
-  if (!gamesService) {
-    return <p className="center">GamesServiceContext is missing</p>;
-  }
-  const { games, update, remove, refreshGames } = gamesService;
-
   const { id } = useParams<{ id: string }>();
+
+  const { games, update, remove, refreshGames } = useContext(
+    GamesServiceContext
+  ) as GamesService;
+
+  const { AuthInfo, addGameToBasket } = useContext(
+    UserServiceContext
+  ) as UserService;
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [coverPath, setCoverPath] = useState("");
+  const [changes, setChanges] = useState(false);
+
+  useEffect(() => refreshGames(), []);
+  useEffect(() => setDefaulValues(), [games]);
 
   const selectedGame = (games: Game[], id: string) => {
     const def: Game = {
@@ -71,42 +84,37 @@ const GamePage = observer(() => {
     return games.find((element) => element.id === id) || def;
   };
 
-  const [name, setName] = useState(selectedGame(games, id).name);
-  const [description, setDescription] = useState(
-    selectedGame(games, id).description
-  );
-  const [price, setPrice] = useState(selectedGame(games, id).price);
-  const [discount, setDiscount] = useState(selectedGame(games, id).discount);
-  const [coverPath, setCoverPath] = useState(selectedGame(games, id).coverPath);
-
-  const [changes, setChanges] = useState(false);
-
-  const { AuthInfo, addGameToBasket } = useContext(
-    UserServiceContext
-  ) as UserService;
-
-  useEffect(() => {
-    refreshGames();
-  }, []);
-
-  useEffect(() => {
-    setName(selectedGame(games, id).name);
-    setDescription(selectedGame(games, id).description);
-    setPrice(selectedGame(games, id).price);
-    setDiscount(selectedGame(games, id).discount);
-    setCoverPath(selectedGame(games, id).coverPath);
-  }, [games]);
+  const setDefaulValues = () => {
+    let game = selectedGame(games, id);
+    setName(game.name);
+    setDescription(game.description);
+    setPrice(game.price);
+    setDiscount(game.discount);
+    setCoverPath(game.coverPath);
+  };
 
   if (changes) {
     return (
       <Grid container className={classes.root} spacing={3}>
         <Grid xs={3} item>
-          <img className={classes.cover} src={coverPath}></img>
+          <img
+            className={classes.cover}
+            src={coverPath !== "" ? coverPath : "/images/notfound.png"}
+          ></img>
+          <Button
+            className={classes.button}
+            fullWidth
+            variant="contained"
+            color="primary"
+          >
+            Загрузить обложку
+          </Button>
           <FormControl fullWidth className={classes.textField}>
             <InputLabel>Цена</InputLabel>
             <Input
               value={price}
-              onChange={() => {}}
+              type="number"
+              onChange={(v): void => setPrice(v.target.value)}
               startAdornment={
                 <InputAdornment position="start">$</InputAdornment>
               }
@@ -116,7 +124,8 @@ const GamePage = observer(() => {
             <InputLabel>Скидка</InputLabel>
             <Input
               value={discount}
-              onChange={() => {}}
+              type="number"
+              onChange={(v): void => setDiscount(v.target.value)}
               startAdornment={
                 <InputAdornment position="start">%</InputAdornment>
               }
@@ -125,44 +134,64 @@ const GamePage = observer(() => {
         </Grid>
         <Grid xs={8} item>
           <Grid container>
-            <Grid item xs={11}>
+            <Grid item xs={10}>
               <TextField
                 value={name}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(v): void => {}}
+                onChange={(v): void => setName(v.target.value)}
               />
             </Grid>
-            <Grid item container xs={1} alignContent="center">
-              <Grid item xs={6}>
-                <IconButton onClick={() => setChanges(false)}>
+            <Grid item container xs={2}>
+              <Grid item xs={4}>
+                <IconButton
+                  onClick={() => {
+                    setDefaulValues();
+                    setChanges(false);
+                  }}
+                >
                   <CloseIcon />
                 </IconButton>
               </Grid>
-              <Grid item xs={6}>
-                <IconButton color="primary" onClick={() => setChanges(false)}>
+              <Grid item xs={4}>
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    remove(selectedGame(games, id));
+                    document.location.href = "/";
+                  }}
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={4}>
+                <IconButton
+                  color="primary"
+                  onClick={() => {
+                    let game = selectedGame(games, id);
+                    game.name = name;
+                    game.description = description;
+                    game.coverPath = coverPath;
+                    game.discount = discount;
+                    game.price = price;
+                    update(game);
+                    setChanges(false);
+                  }}
+                >
                   <CheckIcon />
                 </IconButton>
               </Grid>
             </Grid>
           </Grid>
-          <Rating
-            name="simple-controlled"
-            value={1}
-            size="large"
-            onChange={(event, newValue) => {
-              // setValue(newValue);
-            }}
-          />
           <h3>Описание</h3>
           <TextField
             fullWidth
             multiline
             variant="outlined"
             value={description}
-            onChange={() => {}}
+            onChange={(v): void => setDescription(v.target.value)}
           />
         </Grid>
       </Grid>
@@ -172,7 +201,10 @@ const GamePage = observer(() => {
   return (
     <Grid container className={classes.root} spacing={3}>
       <Grid xs={3} item>
-        <img className={classes.cover} src={coverPath}></img>
+        <img
+          className={classes.cover}
+          src={coverPath !== "" ? coverPath : "/images/notfound.png"}
+        ></img>
         <h3>${price}</h3>
         {AuthInfo.isAuth ? (
           <>

@@ -22,7 +22,8 @@ namespace Data.Repositories
         public void DeleteItem(string studentID)
         {
             Basket basket = context.Basket.Find(studentID);
-            context.Basket.Remove(basket);
+            basket.IsDeleted = true;
+            UpdateItem(basket);
         }
 
         public async Task<Basket> GetItemByID(string id)
@@ -32,7 +33,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Basket>> GetItems()
         {
-            return await context.Basket.Include(b => b.User).Include(b => b.BasketGames).ThenInclude(b => b.Game).ToListAsync();
+            return await context.Basket.Where(a => !a.IsDeleted).Include(b => b.User).Include(b => b.BasketGames).ThenInclude(b => b.Game).ToListAsync();
         }
 
         public async Task<Basket> InsertItem(Basket basket)

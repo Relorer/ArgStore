@@ -20,7 +20,8 @@ namespace Data.Repositories
         public void DeleteItem(string studentID)
         {
             Game game = context.Game.Find(studentID);
-            context.Game.Remove(game);
+            game.IsDeleted = true;
+            UpdateItem(game);
         }
 
         public async Task<Game> GetItemByID(string id)
@@ -30,7 +31,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Game>> GetItems()
         {
-            return await context.Game.Include(p => p.Comments).ToListAsync();
+            return await context.Game.Where(a => !a.IsDeleted).Include(p => p.Comments).ToListAsync();
         }
 
 

@@ -31,7 +31,7 @@ export class GamesService {
               description: "",
               price: 0,
               discount: 0,
-              coverPath: "",
+              coverPath: "/images/notfound.png",
               releaseDate: new Date(),
               rating: undefined,
               comments: undefined,
