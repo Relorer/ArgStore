@@ -23,7 +23,7 @@ export type Game = BaseEntity & {
   releaseDate: Date;
   price: number;
   discount: number;
-  coverPath: string;
+  cover: string;
   rating: Rating | undefined;
   comments: Comment[] | undefined;
   genres: Genre[] | undefined;

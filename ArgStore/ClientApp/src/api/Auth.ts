@@ -45,6 +45,6 @@ export const getAuthInfo = async () => {
             "Content-Type": "application/json",
         },
     });
-    await checkResponse(response, "isAuth");
+    await checkResponse(response, "getAuthInfo");
     return (await response.json()) as AuthInfo;
 };

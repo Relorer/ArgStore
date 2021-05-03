@@ -66,7 +66,7 @@ namespace ArgStore.Controllers
             gameFromDB.Rating = game.Rating;
             gameFromDB.ReleaseDate = game.ReleaseDate;
             gameFromDB.Description = game.Description;
-            gameFromDB.CoverPath = game.CoverPath;
+            gameFromDB.Cover = game.Cover;
             gameFromDB.Comments = game.Comments;
 
             baseContext.Game.UpdateItem(gameFromDB);

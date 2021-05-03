@@ -46,14 +46,10 @@ const GameCard: FC<GameCardProps> = ({ game }) => {
             <Grid item xs={12}>
               <img
                 className={classes.cover}
-                src={
-                  game.coverPath !== ""
-                    ? game.coverPath
-                    : "/images/notfound.png"
-                }
+                src={game.cover !== "" ? game.cover : "/images/notfound.png"}
               />
               <Typography className={classes.title}>{game.name}</Typography>
-              <Typography>${game.discount}</Typography>
+              <Typography>${game.price}</Typography>
             </Grid>
           </Grid>
         </CardContent>

@@ -19,7 +19,7 @@ namespace Data.Entities
         public DateTime ReleaseDate { get; set; }
         public int Price { get; set; }
         public int Discount { get; set; }
-        public string CoverPath { get; set; } 
+        public string Cover { get; set; } 
         public Rating Rating { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<BasketGame> BasketGames { get; set; }

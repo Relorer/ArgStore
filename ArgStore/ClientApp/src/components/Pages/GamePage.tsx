@@ -62,8 +62,8 @@ const GamePage = observer(() => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
-  const [coverPath, setCoverPath] = useState("");
-  const [changes, setChanges] = useState(false);
+  const [cover, setCover] = useState("");
+  const [changes, setChanges] = useState(true);
 
   useEffect(() => refreshGames(), []);
   useEffect(() => setDefaulValues(), [games]);
@@ -75,7 +75,7 @@ const GamePage = observer(() => {
       description: "",
       price: 0,
       discount: 0,
-      coverPath: "",
+      cover: "",
       releaseDate: new Date(),
       rating: undefined,
       comments: undefined,
@@ -90,7 +90,15 @@ const GamePage = observer(() => {
     setDescription(game.description);
     setPrice(game.price);
     setDiscount(game.discount);
-    setCoverPath(game.coverPath);
+    setCover(game.cover);
+  };
+
+  const getBase64 = (file) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      setCover(reader.result);
+    };
   };
 
   if (changes) {
@@ -99,16 +107,34 @@ const GamePage = observer(() => {
         <Grid xs={3} item>
           <img
             className={classes.cover}
-            src={coverPath !== "" ? coverPath : "/images/notfound.png"}
+            src={cover !== "" ? cover : "/images/notfound.png"}
           ></img>
+
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            style={{ display: "none" }}
+            id="fileinput"
+            onChange={async (e) => {
+              let files = e.target.files;
+              if (files && files.length > 0) {
+                let file = files[0];
+                getBase64(file);
+              }
+            }}
+          />
           <Button
             className={classes.button}
             fullWidth
             variant="contained"
             color="primary"
+            onClick={() => {
+              document.getElementById("fileinput").click();
+            }}
           >
             Загрузить обложку
           </Button>
+
           <FormControl fullWidth className={classes.textField}>
             <InputLabel>Цена</InputLabel>
             <Input
@@ -173,7 +199,7 @@ const GamePage = observer(() => {
                     let game = selectedGame(games, id);
                     game.name = name;
                     game.description = description;
-                    game.coverPath = coverPath;
+                    game.cover = cover;
                     game.discount = discount;
                     game.price = price;
                     update(game);
@@ -203,7 +229,7 @@ const GamePage = observer(() => {
       <Grid xs={3} item>
         <img
           className={classes.cover}
-          src={coverPath !== "" ? coverPath : "/images/notfound.png"}
+          src={cover !== "" ? cover : "/images/notfound.png"}
         ></img>
         <h3>${price}</h3>
         {AuthInfo.isAuth ? (

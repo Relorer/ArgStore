@@ -52,7 +52,7 @@ const LoginPage = observer(() => {
         rememberMe: rememberMe,
       });
       console.log();
-      if (window.location.pathname === "/signin") window.history.back();
+      // if (window.location.pathname === "/signin") window.history.back();
     } catch (e) {
       if (notify) notify(e.message, "error");
       else console.log(e);

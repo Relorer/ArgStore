@@ -41,7 +41,7 @@ const BasketGameCard: FC<BasketGameCardProps> = observer(({ game }) => {
         <CardContent>
           <Grid container spacing={3}>
             <Grid item xs={1}>
-              <img className={classes.cover} src={game.coverPath} />
+              <img className={classes.cover} src={game.cover} />
             </Grid>
             <Grid item xs={10}>
               <Typography variant="h5" component="h5">
