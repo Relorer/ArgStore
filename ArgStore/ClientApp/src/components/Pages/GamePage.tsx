@@ -130,7 +130,7 @@ const GamePage = observer(() => {
                         variant="contained"
                         color="primary"
                         onClick={() => {
-                            document.getElementById("fileinput").click();
+              document?.getElementById("fileinput")?.click();
                         }}
                     >
             Загрузить обложку
