@@ -6,7 +6,6 @@ namespace BLL
     public interface IUnitOfWork : IDisposable
     {
         public UserRepository User { get; }
-        public RatingRepository Rating { get; }
         public PurchaseHistoryRepository PurchaseHistory { get; }
         public PurchasedGameRepository PurchasedGame { get; }
         public MarkRepository Mark { get; }

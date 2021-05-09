@@ -6,8 +6,8 @@ namespace Data.Entities
 {
     public class Mark : BaseEntity
     {
-        public string Value { get; set; }
+        public double Value { get; set; }
         public virtual User User { get; set; }
-        public virtual Rating Rating { get; set; }
+        public virtual Game Game { get; set; }
     }
 }

@@ -24,7 +24,6 @@ namespace Data.Context
         public DbSet<Mark> Mark { get; set; }
         public DbSet<PurchasedGame> PurchasedGame { get; set; }
         public DbSet<PurchaseHistory> PurchaseHistory { get; set; }
-        public DbSet<Rating> Rating { get; set; }
         public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

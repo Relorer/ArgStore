@@ -31,7 +31,7 @@ namespace Data.Repositories
 
         public async Task<IEnumerable<Game>> GetItems()
         {
-            return await context.Game.Where(a => !a.IsDeleted).Include(p => p.Comments).ToListAsync();
+            return await context.Game.Where(a => !a.IsDeleted).Include(p => p.Comments).Include(p => p.Marks).ThenInclude(p => p.User).ToListAsync();
         }
 
 

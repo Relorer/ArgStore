@@ -12,6 +12,7 @@ namespace Data.Entities
             this.BasketGames = new HashSet<BasketGame>();
             this.Baskets = new HashSet<Basket>();
             this.Genres = new HashSet<Genre>();
+            this.Marks = new HashSet<Mark>();
         }
 
         public string Name { get; set; }
@@ -20,7 +21,7 @@ namespace Data.Entities
         public int Price { get; set; }
         public int Discount { get; set; }
         public string Cover { get; set; } 
-        public Rating Rating { get; set; }
+        public virtual ICollection<Mark> Marks { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<BasketGame> BasketGames { get; set; }
         public virtual ICollection<Basket> Baskets { get; set; }

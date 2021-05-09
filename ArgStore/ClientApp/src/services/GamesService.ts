@@ -33,7 +33,7 @@ export class GamesService {
               discount: 0,
               cover: "/images/notfound.png",
               releaseDate: new Date(),
-              rating: undefined,
+              marks: [],
               comments: undefined,
               genres: undefined,
           };
@@ -47,6 +47,7 @@ export class GamesService {
   public async update(game: Game): Promise<void> {
       try {
           await updateGame(game);
+          await this.refreshGames();
           this.notify("Updated", "success");
       } catch (e) {
           this.notify(e.message, "error");

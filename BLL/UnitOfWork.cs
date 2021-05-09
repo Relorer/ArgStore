@@ -25,18 +25,7 @@ namespace BLL
                 return userRepository;
             }
         }
-        private RatingRepository ratingRepository;
-        public RatingRepository Rating
-        {
-            get
-            {
-                if (ratingRepository == null)
-                {
-                    ratingRepository = new RatingRepository(context);
-                }
-                return ratingRepository;
-            }
-        }
+        
         private PurchaseHistoryRepository purchaseHistoryRepository;
         public PurchaseHistoryRepository PurchaseHistory
         {

@@ -24,7 +24,7 @@ export type Game = BaseEntity & {
   price: number;
   discount: number;
   cover: string;
-  rating: Rating | undefined;
+  marks: Mark[];
   comments: Comment[] | undefined;
   genres: Genre[] | undefined;
 };
@@ -35,9 +35,9 @@ export type Genre = BaseEntity & {
 };
 
 export type Mark = BaseEntity & {
-  value: string;
+  value: number;
   user: User;
-  rating: Rating;
+  game: Game;
 };
 
 export type PurchasedGame = BaseEntity & {
@@ -50,10 +50,6 @@ export type PurchasedGame = BaseEntity & {
 export type PurchaseHistory = BaseEntity & {
   purchasedGame: PurchasedGame[];
   user: User;
-};
-
-export type Rating = BaseEntity & {
-  marks: Mark[];
 };
 
 export type User = BaseEntity & {

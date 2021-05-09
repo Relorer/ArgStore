@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,8 +17,9 @@ namespace ArgStore.Controllers
     {
         private readonly ILogger<GamesController> logger;
         private readonly IUnitOfWork baseContext;
+        private readonly UserManager<User> userManager;
 
-        public GamesController(ILogger<GamesController> logger, IUnitOfWork baseContext)
+        public GamesController(ILogger<GamesController> logger, UserManager<User> userManager, IUnitOfWork baseContext)
         {
             this.logger = logger;
             this.baseContext = baseContext;
@@ -43,7 +45,6 @@ namespace ArgStore.Controllers
             return game;
         }
 
-        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Game game)
         {
@@ -63,14 +64,26 @@ namespace ArgStore.Controllers
             gameFromDB.Genres = game.Genres;
             gameFromDB.Price = game.Price;
             gameFromDB.Discount = game.Discount;
-            gameFromDB.Rating = game.Rating;
+            foreach (var item in game.Marks)
+            {
+                if (item.User != null) item.User = await baseContext.User.GetItemByID(item.User.Id);
+            }
+            gameFromDB.Marks = game.Marks;
             gameFromDB.ReleaseDate = game.ReleaseDate;
             gameFromDB.Description = game.Description;
             gameFromDB.Cover = game.Cover;
             gameFromDB.Comments = game.Comments;
 
-            baseContext.Game.UpdateItem(gameFromDB);
-            baseContext.Save();
+            try
+            {
+                baseContext.Game.UpdateItem(gameFromDB);
+                baseContext.Save();
+            }
+
+            catch (Exception e)
+            {
+                var a = e;
+            }
 
             return NoContent();
         }
@@ -105,6 +118,11 @@ namespace ArgStore.Controllers
             baseContext.Save();
 
             return NoContent();
+        }
+
+        private async Task<User> GetCurrentUserAsync()
+        {
+            return await userManager.GetUserAsync(HttpContext.User);
         }
     }
 }
