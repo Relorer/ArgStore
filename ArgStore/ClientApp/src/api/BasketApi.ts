@@ -23,3 +23,12 @@ export const deleteGameToBasket = async (id: string): Promise<User> => {
     await checkResponse(response, "deleteGameToBasket");
     return (await response.json()) as User;
 };
+
+export const clearBasket = async () => {
+    const gameApiUrl = `${API_URL}/clear`;
+    const response = await fetch(gameApiUrl, {
+        method: "DELETE",
+    });
+    await checkResponse(response, "clearBasket");
+    return (await response.json()) as User;
+};

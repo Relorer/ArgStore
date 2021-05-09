@@ -191,6 +191,34 @@ namespace ArgStore.Controllers
             }
         }
 
+        [HttpDelete("api/basket/clear")]
+        public async Task<ActionResult<User>> ClearBasket()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await GetCurrentUserAsync();
+
+            if (user != null)
+            {
+                user.Basket.BasketGames.Clear();
+                baseContext.Basket.UpdateItem(user.Basket);
+                baseContext.Save();
+
+                return user;
+            }
+            else
+            {
+                var errorMsg = new
+                {
+                    message = "Вход не выполнен.",
+                };
+                return BadRequest(errorMsg);
+            }
+        }
+
         private async Task<User> GetCurrentUserAsync()
         {
             var user = await userManager.GetUserAsync(HttpContext.User);

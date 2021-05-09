@@ -287,7 +287,14 @@ const GamePage = observer(() => {
             >
               В корзину
             </Button>
-            <Button variant="contained" color="secondary" href="/purchase">
+            <Button
+              variant="contained"
+              color="secondary"
+              href="/purchase"
+              onClick={() => {
+                addGameToBasket(selectedGame());
+              }}
+            >
               Купить
             </Button>
           </>
