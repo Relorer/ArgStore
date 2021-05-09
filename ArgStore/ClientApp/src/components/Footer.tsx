@@ -1,13 +1,10 @@
-import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Pagination from "@material-ui/lab/Pagination";
-import GameCard from "./GameCard";
-import TwitterIcon from "@material-ui/icons/Twitter";
 import { IconButton } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import MailIcon from "@material-ui/icons/Mail";
-import Grid from "@material-ui/core/Grid";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import React from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -1,12 +1,12 @@
-import React, { FC } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import Typography from "@material-ui/core/Typography";
-import { observer } from "mobx-react";
-import { Game } from "../models/ApiModel";
 import { Grid } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import React, { FC } from "react";
+
+import { Game } from "../models/ApiModel";
 
 const useStyles = makeStyles({
     root: {

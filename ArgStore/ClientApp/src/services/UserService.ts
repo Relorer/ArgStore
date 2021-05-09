@@ -1,13 +1,12 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
+
 import { getAuthInfo, signin, signout, signup } from "../api/Auth";
-import { addGameToBasket, deleteGameToBasket, clearBasket } from "../api/BasketApi";
 import {
-    AuthInfo,
-    Game,
-    SigninForm,
-    SignupForm,
-    User,
-} from "../models/ApiModel";
+    addGameToBasket,
+    clearBasket,
+    deleteGameToBasket,
+} from "../api/BasketApi";
+import { AuthInfo, Game, SigninForm, SignupForm } from "../models/ApiModel";
 import { Notify } from "./SnackBarProvider";
 
 export class UserService {
@@ -80,13 +79,13 @@ export class UserService {
       }
   }
 
-  public async clearBasket() {
-    try {
-        this.AuthInfo.user = await clearBasket();
-    } catch (e) {
-        this.notify(e.message, "error");
-    }
-}
+  public async clearBasket(): Promise<void> {
+      try {
+          this.AuthInfo.user = await clearBasket();
+      } catch (e) {
+          this.notify(e.message, "error");
+      }
+  }
 
   private async getAuthInfo(): Promise<void> {
       try {

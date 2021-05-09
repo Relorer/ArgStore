@@ -1,16 +1,15 @@
+import "./index.scss";
+
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
-import purple from "@material-ui/core/colors/purple";
-import { GamesServiceProvider } from "./services/GamesServiceProvider";
-import { UserServiceContext } from "./services/UserServiceProvider";
-import { UserServiceProvider } from "./services/UserServiceProvider";
-import App from "./App";
 
-import "./index.scss";
+import App from "./App";
+import { GamesServiceProvider } from "./services/GamesServiceProvider";
 import { SnackBarProvider } from "./services/SnackBarProvider";
+import { UserServiceProvider } from "./services/UserServiceProvider";
 
 const theme = createMuiTheme({
     palette: {

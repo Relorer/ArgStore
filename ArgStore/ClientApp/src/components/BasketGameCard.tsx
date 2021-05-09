@@ -1,13 +1,13 @@
-import React, { FC, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import Typography from "@material-ui/core/Typography";
-import { observer } from "mobx-react";
-import { Game } from "../models/ApiModel";
-import CloseIcon from "@material-ui/icons/Close";
 import { Grid, IconButton } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import { observer } from "mobx-react";
+import React, { FC, useContext } from "react";
+import { Game } from "../models/ApiModel";
 import { UserService } from "../services/UserService";
 import { UserServiceContext } from "../services/UserServiceProvider";
 
