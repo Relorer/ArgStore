@@ -72,20 +72,28 @@ const BasketPage = observer(() => {
                         item
                         container
                         xs={12}
-                        justify="center"
+                        justify="space-between"
                         alignItems="center"
                         className={classes.bottomMenu}
                     >
-                        <Grid item xs={11}>
+                        <Grid item xs={9}>
               Total: $
                             {AuthInfo.user?.basket.basketGames
                 .map((g) => g.game.price)
                 .reduce((g1, g2) => g1 + g2)}
                         </Grid>
-                        <Grid item xs={1}>
-                            <Button variant="contained" color="primary" href="/purchase">
-                Купить
-                            </Button>
+                        <Grid
+                            item
+                            container
+                            xs={3}
+                            alignItems="flex-end"
+                            justify="flex-end"
+                        >
+                            <Grid item>
+                                <Button variant="contained" color="primary" href="/purchase">
+                  Купить
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>

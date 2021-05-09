@@ -134,16 +134,16 @@ export const SearchAppBar = observer(() => {
                                     signout();
                                 }}
                             >
-                Signout
+                Выйти
                             </Button>
                         </>
                     ) : (
                         <>
                             <Button className={classes.button} href="signin">
-                Login
+                Войти
                             </Button>
                             <Button className={classes.button} href="signup">
-                Signup
+                Регистрация
                             </Button>
                         </>
                     )}

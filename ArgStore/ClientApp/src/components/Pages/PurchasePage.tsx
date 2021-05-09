@@ -86,7 +86,7 @@ const PurchasePage = observer(() => {
                     </FormControl>
                 </Grid>
                 <Grid item container spacing={1}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <Button
                             fullWidth
                             variant="contained"
@@ -97,7 +97,7 @@ const PurchasePage = observer(() => {
               Оплатить
                         </Button>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <Button fullWidth href="/" style={{ color: "#777" }}>
               Отказаться от оплаты и вернуться в магазин
                         </Button>

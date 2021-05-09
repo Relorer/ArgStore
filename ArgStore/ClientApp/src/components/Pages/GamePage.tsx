@@ -144,7 +144,7 @@ const GamePage = observer(() => {
     if (changes) {
         return (
             <Grid container className={classes.root} spacing={3}>
-                <Grid xs={3} item>
+                <Grid xs={12} md={3} item>
                     <img
                         className={classes.cover}
                         src={cover !== "" ? cover : "/images/notfound.png"}
@@ -198,7 +198,7 @@ const GamePage = observer(() => {
                         />
                     </FormControl>
                 </Grid>
-                <Grid xs={8} item>
+                <Grid xs={12} md={8} item>
                     <Grid container>
                         <Grid item xs={10}>
                             <TextField
@@ -267,7 +267,7 @@ const GamePage = observer(() => {
 
     return (
         <Grid container className={classes.root} spacing={3}>
-            <Grid xs={3} item>
+            <Grid xs={12} md={3} item>
                 <img
                     className={classes.cover}
                     src={cover !== "" ? cover : "/images/notfound.png"}
@@ -300,7 +300,7 @@ const GamePage = observer(() => {
                     <>Авторизуйтесь для совершения покупок</>
                 )}
             </Grid>
-            <Grid xs={8} item>
+            <Grid xs={12} md={8} item>
                 <Grid container>
                     <Grid item xs={11}>
                         <h2>{name}</h2>
@@ -317,11 +317,11 @@ const GamePage = observer(() => {
                 </Grid>
 
                 <Grid container justify="center" alignItems="center">
-                    <Grid item xs={1}>
+                    <Grid item xs={3} md={1}>
                         <span className={classes.rating}>{rating.toFixed(1)}</span>
                         <span className={classes.ratingMax}>/5</span>
                     </Grid>
-                    <Grid item xs={11}>
+                    <Grid item xs={9} md={11}>
                         <Rating
                             name="simple-controlled"
                             value={userRating}
