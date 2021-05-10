@@ -26,8 +26,9 @@ namespace ArgStore.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Game>>> GetClients()
+        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
+            logger.LogInformation($"Вызов get запроса /Games.");
             return new ActionResult<IEnumerable<Game>>(await baseContext.Game.GetItems());
         }
 
@@ -35,21 +36,26 @@ namespace ArgStore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetById(string id)
         {
+            logger.LogInformation($"Вызов get запроса /Games/{id}.");
             var game = await baseContext.Game.GetItemByID(id);
 
             if (game == null)
             {
+                logger.LogWarning($"Игра с id '{id}' не найдена");
                 return NotFound();
             }
 
+            logger.LogInformation($"Игра {game.Name} успешно отправлена");
             return game;
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Game game)
         {
+            logger.LogInformation($"Вызов put запроса /Games/{id}.");
             if (!ModelState.IsValid)
             {
+                logger.LogError($"BadRequest: {ModelState}");
                 return BadRequest(ModelState);
             }
 
@@ -57,6 +63,7 @@ namespace ArgStore.Controllers
 
             if (gameFromDB == null)
             {
+                logger.LogWarning($"Игра с id '{id}' не найдена");
                 return NotFound();
             }
 
@@ -82,47 +89,63 @@ namespace ArgStore.Controllers
 
             catch (Exception e)
             {
-                var a = e;
+                logger.LogError(e.Message, e);
             }
 
+            logger.LogInformation($"Игра с id '{id}' была успешно обновлена");
             return NoContent();
         }
 
-        //[Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Game>> Create(Game game)
         {
+            logger.LogInformation("Вызов post запроса /Games.");
             if (!ModelState.IsValid)
             {
+                logger.LogError($"BadRequest: {ModelState}");
                 return BadRequest(ModelState);
             }
 
-            var resultGame = await baseContext.Game.InsertItem(game);
-            baseContext.Save();
+            Game resultGame = null;
+            try
+            {
+                resultGame = await baseContext.Game.InsertItem(game);
+                baseContext.Save();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message, e);
+            }
 
+            logger.LogInformation($"Игра {game?.Name} успешно создана");
             return resultGame;
         }
 
         [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteClient(string id)
+        public async Task<ActionResult> DeleteGame(string id)
         {
+            logger.LogInformation($"Вызов delete запроса /Games/{id}.");
             var game = await baseContext.Game.GetItemByID(id);
 
             if (game == null)
             {
+                logger.LogWarning($"Игра с id '{id}' не найдена");
                 return NotFound();
             }
 
-            baseContext.Game.DeleteItem(id);
-            baseContext.Save();
+            try
+            {
+                baseContext.Game.DeleteItem(id);
+                baseContext.Save();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message, e);
+            }
 
+            logger.LogInformation($"Игра с id '{id}' была успешно удалена");
             return NoContent();
-        }
-
-        private async Task<User> GetCurrentUserAsync()
-        {
-            return await userManager.GetUserAsync(HttpContext.User);
         }
     }
 }
