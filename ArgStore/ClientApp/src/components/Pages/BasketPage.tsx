@@ -64,7 +64,7 @@ const BasketPage = observer(() => {
             ) : (
                 <Grid container>
                     {AuthInfo.user?.basket?.basketGames.map((g) => (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} key={g.Id}>
                             <BasketGameCard game={g.game} />
                         </Grid>
                     ))}
