@@ -4,6 +4,9 @@ using System;
 
 namespace BLL
 {
+    /// <summary>
+    /// Класс, предоставляющий интерфес для взаимодействия с репозиториями
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private BaseContext context;

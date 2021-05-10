@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace ArgStore.Controllers
 {
+    /// <summary>
+    /// Контролер, отвечающий за api, связанную с авторизацией и корзиной пользователя
+    /// </summary>
     [ApiController]
     [Produces("application/json")]
     public class AuthController : Controller
@@ -28,6 +31,11 @@ namespace ArgStore.Controllers
             this.baseContext = baseContext;
         }
 
+        /// <summary>
+        /// Регистрация нового пользователя
+        /// </summary>
+        /// <param name="model">Содержит данные нового пользователя</param>
+        /// <returns>Сообщение о результате регистрации</returns>
         [HttpPost]
         [Route("api/signup")]
         public async Task<IActionResult> Register([FromBody] SignupModel model)
@@ -77,6 +85,11 @@ namespace ArgStore.Controllers
             }
         }
 
+        /// <summary>
+        /// Авторизация пользователя    
+        /// </summary>
+        /// <param name="model">Содержит данные для авторизации</param>
+        /// <returns>Сообщение о результате авторизации</returns>
         [Route("api/signin")]
         public async Task<IActionResult> Login([FromBody] SigninModel model)
         {
@@ -117,6 +130,10 @@ namespace ArgStore.Controllers
             }
         }
 
+        /// <summary>
+        /// Выход пользователя из системы
+        /// </summary>
+        /// <returns>Сообщение о выходе</returns>
         [HttpPost]
         [Route("api/signout")]
         public async Task<IActionResult> Signout()
@@ -131,6 +148,10 @@ namespace ArgStore.Controllers
             return Ok(msg);
         }
 
+        /// <summary>
+        /// Формирование основной информации о текущем состоянии пользователя
+        /// </summary>
+        /// <returns>Информация о текущем пользователе и его роль в системе</returns>
         [HttpPost]
         [Route("api/authinfo")]
         public async Task<IActionResult> AuthInfo()
@@ -146,6 +167,11 @@ namespace ArgStore.Controllers
             return Ok(msg);
         }
 
+        /// <summary>
+        /// Добавление игры в корзину пользователя
+        /// </summary>
+        /// <param name="game">Игра, которую надо добавить в корзину</param>
+        /// <returns>Текущий пользователь, включая его корзину</returns>
         [HttpPost]
         [Route("api/basket/add")]
         public async Task<ActionResult<User>> AddGameToBasket(Game game)
@@ -187,6 +213,11 @@ namespace ArgStore.Controllers
             }
         }
 
+        /// <summary>
+        /// Удаление игры из корзины пользователя
+        /// </summary>
+        /// <param name="id">id игры, которую надо удалить из корзины</param>
+        /// <returns>Текущий пользователь, включая его корзину</returns>
         [HttpDelete("api/basket/{id}")]
         public async Task<ActionResult<User>> DeleteGameToBasket(string id)
         {
@@ -228,6 +259,10 @@ namespace ArgStore.Controllers
             }
         }
 
+        /// <summary>
+        /// Очистка корзины пользователя
+        /// </summary>
+        /// <returns>Текущий пользователь, включая его корзину</returns>
         [HttpDelete("api/basket/clear")]
         public async Task<ActionResult<User>> ClearBasket()
         {
@@ -268,6 +303,10 @@ namespace ArgStore.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение текущего пользователя
+        /// </summary>
+        /// <returns>Текущий пользователь</returns>
         private async Task<User> GetCurrentUserAsync()
         {
             var user = await userManager.GetUserAsync(HttpContext.User);

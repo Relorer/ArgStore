@@ -17,9 +17,9 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(string studentID)
+        public void DeleteItem(string id)
         {
-            Game game = context.Game.Find(studentID);
+            Game game = context.Game.Find(id);
             game.IsDeleted = true;
             UpdateItem(game);
         }

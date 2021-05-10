@@ -19,9 +19,9 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(string studentID)
+        public void DeleteItem(string id)
         {
-            PurchasedGame purchasedGame = context.PurchasedGame.Find(studentID);
+            PurchasedGame purchasedGame = context.PurchasedGame.Find(id);
             purchasedGame.IsDeleted = true;
             UpdateItem(purchasedGame);
         }
@@ -41,9 +41,9 @@ namespace Data.Repositories
             return (await context.PurchasedGame.AddAsync(purchasedGame)).Entity;
         }
 
-        public void UpdateItem(PurchasedGame student)
+        public void UpdateItem(PurchasedGame item)
         {
-            context.Entry(student).State = EntityState.Modified;
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }

@@ -25,6 +25,10 @@ namespace ArgStore.Controllers
             this.baseContext = baseContext;
         }
 
+        /// <summary>
+        /// Формирует список всех игр
+        /// </summary>
+        /// <returns>Список игр</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
@@ -32,7 +36,11 @@ namespace ArgStore.Controllers
             return new ActionResult<IEnumerable<Game>>(await baseContext.Game.GetItems());
         }
 
-
+        /// <summary>
+        /// Получение игры по id
+        /// </summary>
+        /// <param name="id">id игры</param>
+        /// <returns>Игра</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetById(string id)
         {
@@ -49,6 +57,12 @@ namespace ArgStore.Controllers
             return game;
         }
 
+        /// <summary>
+        /// Обновление игры
+        /// </summary>
+        /// <param name="id">id игры</param>
+        /// <param name="game">игры</param>
+        /// <returns>Сообщение об обновлении игры</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Game game)
         {
@@ -96,6 +110,11 @@ namespace ArgStore.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Добавление новой игры в базу
+        /// </summary>
+        /// <param name="game">Игра</param>
+        /// <returns>Информация о добавлении</returns>
         [HttpPost]
         public async Task<ActionResult<Game>> Create(Game game)
         {
@@ -121,6 +140,11 @@ namespace ArgStore.Controllers
             return resultGame;
         }
 
+        /// <summary>
+        /// Удаление игры из базы
+        /// </summary>
+        /// <param name="id">id игры</param>
+        /// <returns>Информация об удалении</returns>
         [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteGame(string id)

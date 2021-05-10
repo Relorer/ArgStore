@@ -19,9 +19,9 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(string studentID)
+        public void DeleteItem(string id)
         {
-            Basket basket = context.Basket.Find(studentID);
+            Basket basket = context.Basket.Find(id);
             basket.IsDeleted = true;
             UpdateItem(basket);
         }
@@ -36,14 +36,14 @@ namespace Data.Repositories
             return await context.Basket.Where(a => !a.IsDeleted).Include(b => b.User).Include(b => b.BasketGames).ThenInclude(b => b.Game).ToListAsync();
         }
 
-        public async Task<Basket> InsertItem(Basket basket)
+        public async Task<Basket> InsertItem(Basket item)
         {
-            return (await context.Basket.AddAsync(basket)).Entity;
+            return (await context.Basket.AddAsync(item)).Entity;
         }
 
-        public void UpdateItem(Basket student)
+        public void UpdateItem(Basket item)
         {
-            context.Entry(student).State = EntityState.Modified;
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }

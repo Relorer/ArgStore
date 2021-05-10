@@ -8,6 +8,10 @@ namespace Data.Context
 {
     static class DbInitializer
     {
+        /// <summary>
+        /// Метод расширения для первоначальной инициализации базы
+        /// </summary>
+        /// <param name="context">Контекст базы данных</param>
         public static void Initialize(this BaseContext context)
         {
             if (!context.Database.EnsureCreated())
@@ -71,15 +75,6 @@ namespace Data.Context
                     Cover = "https://store-images.s-microsoft.com/image/apps.21520.14522552561148096.987376a7-b8c2-4bec-8d4f-48e4b6df5630.1a1aefd0-15dd-44a2-8303-be7a96288f1e",
             }
             };
-            var comments = new List<Comment>()
-                    {
-                        new Comment()
-                        {
-                            Text = "Text",
-                            Game = games[0],
-                        }
-                    };
-            games[0].Comments = comments;
 
             foreach (var c in games)
             {

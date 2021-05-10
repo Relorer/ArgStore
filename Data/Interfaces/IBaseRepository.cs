@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace Data.Interfaces
 {
+    /// <summary>
+    /// Интерфейс репозитория
+    /// </summary>
+    /// <typeparam name="item">Модель данных</typeparam>
     public interface IBaseRepository<item>
     {
         Task<IEnumerable<item>> GetItems();

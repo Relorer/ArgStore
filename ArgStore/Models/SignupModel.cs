@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ArgStore.Models
 {
+    /// <summary>
+    /// Модель для регистрации нового пользователя
+    /// </summary>
     public class SignupModel
     {
         [Required]

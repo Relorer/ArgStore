@@ -1,3 +1,4 @@
+// Метод проверяющий ответы от сервера и формирующий сообщения об ошибках
 const checkResponse = async (response: Response, place: string) => {
     console.log(await response);
     if (!response.ok) {

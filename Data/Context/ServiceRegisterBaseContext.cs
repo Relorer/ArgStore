@@ -10,6 +10,12 @@ namespace Data.Context
 {
     public static class ServiceRegisterBaseContext
     {
+        /// <summary>
+        /// Метод расширения для регистрации контекста базы данных
+        /// </summary>
+        /// <param name="services">The services available in the application.</param>
+        /// <param name="connection">Строка подключения к бд</param>
+        /// <returns>The services.</returns>
         public static IServiceCollection RegisterBaseContext(this IServiceCollection services, string connection)
         {
             services.AddIdentity<User, IdentityRole>()

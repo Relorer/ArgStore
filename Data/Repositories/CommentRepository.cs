@@ -19,9 +19,9 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(string studentID)
+        public void DeleteItem(string id)
         {
-            Comment comment = context.Comment.Find(studentID);
+            Comment comment = context.Comment.Find(id);
             comment.IsDeleted = true;
             UpdateItem(comment);
         }
@@ -41,9 +41,9 @@ namespace Data.Repositories
             return (await context.Comment.AddAsync(comment)).Entity;
         }
 
-        public void UpdateItem(Comment student)
+        public void UpdateItem(Comment item)
         {
-            context.Entry(student).State = EntityState.Modified;
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }

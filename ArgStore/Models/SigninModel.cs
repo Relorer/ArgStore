@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ArgStore.Models
 {
+    /// <summary>
+    /// Модель для входа пользователя
+    /// </summary>
     public class SigninModel
     {
         [Required]

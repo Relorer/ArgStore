@@ -19,9 +19,9 @@ namespace Data.Repositories
             this.context = context;
         }
 
-        public void DeleteItem(string studentID)
+        public void DeleteItem(string id)
         {
-            PurchaseHistory purchaseHistory = context.PurchaseHistory.Find(studentID);
+            PurchaseHistory purchaseHistory = context.PurchaseHistory.Find(id);
             purchaseHistory.IsDeleted = true;
             UpdateItem(purchaseHistory);
         }
@@ -41,9 +41,9 @@ namespace Data.Repositories
             return (await context.PurchaseHistory.AddAsync(purchaseHistory)).Entity;
         }
 
-        public void UpdateItem(PurchaseHistory student)
+        public void UpdateItem(PurchaseHistory item)
         {
-            context.Entry(student).State = EntityState.Modified;
+            context.Entry(item).State = EntityState.Modified;
         }
     }
 }
